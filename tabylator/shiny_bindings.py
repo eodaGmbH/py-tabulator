@@ -41,7 +41,7 @@ def output_tabulator(id: str, height: int | str = 400):
 
 
 class render_tabular(Renderer[DataFrame]):
-    def output_tabulator(self) -> Tag:
+    def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 
     async def transform(self, value: DataFrame) -> Jsonifiable:
