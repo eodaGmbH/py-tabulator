@@ -21,6 +21,12 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       layout: "fitColumns",
       columns: columnsDef,
     });
+
+    table.on("rowClick", function (e, row) {
+      const inputName = `${el.id}_row`;
+      console.log(inputName, row.getData());
+      Shiny.onInputChange(inputName, row.getData());
+    });
   }
 }
 
