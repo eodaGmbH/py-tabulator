@@ -1,0 +1,21 @@
+{
+  "name": "py-tabulator",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0",
+    "prettier": "^3.2.4"
+  },
+  "scripts": {
+    "build": "esbuild srcjs/index.js --bundle --minify --outfile=tabylator/srcjs/tabulator-bindings.js",
+    "build-dev": "esbuild srcjs/index.js --bundle --outfile=tabylator/srcjs/tabulator-bindings.js",
+    "prettier": "prettier srcjs --write",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stefan Kuethe",
+  "license": "MIT"
+}
