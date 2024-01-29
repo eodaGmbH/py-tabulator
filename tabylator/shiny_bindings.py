@@ -63,7 +63,7 @@ class render_data_frame(Renderer[DataFrame]):
         return json.loads(value.to_json(orient="table", index=False))
 
 
-class render_tabular_expirimental(Renderer[DataFrame]):
+class render_tabulator_experimental(Renderer[DataFrame]):
     editor: bool
 
     def auto_output_ui(self) -> Tag:
