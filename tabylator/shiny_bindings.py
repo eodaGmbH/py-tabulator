@@ -50,7 +50,7 @@ class render_tabulator(Renderer[Tabulator]):
     async def transform(self, value: Tabulator) -> Jsonifiable:
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
-        return value.to_dict()["df"]
+        return value.to_dict()
 
 
 class render_data_frame(Renderer[DataFrame]):
@@ -60,7 +60,9 @@ class render_data_frame(Renderer[DataFrame]):
     async def transform(self, value: DataFrame) -> Jsonifiable:
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
-        return json.loads(value.to_json(orient="table", index=False))
+        data = json.loads(value.to_json(orient="table", index=False))
+        data["options"] = None
+        return data
 
 
 class render_tabulator_experimental(Renderer[DataFrame]):

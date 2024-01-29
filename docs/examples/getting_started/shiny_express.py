@@ -2,7 +2,8 @@ import pandas as pd
 from shiny import render
 from shiny.express import input, ui
 from tabylator import render_data_frame
-from tabylator.shiny_bindings import render_tabulator_experimental
+from tabylator.shiny_bindings import render_tabulator, render_tabulator_experimental
+from tabylator.tabulator import TableOptions, Tabulator
 
 
 @render.code
@@ -11,8 +12,21 @@ async def txt():
     return input.tabylator_row()["Name"]
 
 
-@render_tabulator_experimental(editor=True)
+# @render_tabulator_experimental(editor=True)
+@render_tabulator
 def tabylator():
-    return pd.read_csv(
+    df = pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+    )
+    return Tabulator(
+        df,
+        TableOptions(
+            headerVisible=True,
+            movableRows=True,
+            # groupBy=["Sex", "Age"],
+            height="600px",
+            pagination=True,
+            selectable=True,
+            download="csv",
+        ),
     )
