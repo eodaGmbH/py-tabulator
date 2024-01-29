@@ -12,6 +12,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         title: item.name,
         field: item.name,
         hozAlign: ["integer", "number"].includes(item.type) ? "right" : "left",
+        editor: true
       };
     });
 
