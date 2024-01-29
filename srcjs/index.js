@@ -6,13 +6,15 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
   renderValue(el, payload) {
     console.log("payload", payload);
     // el.style.background = "lightgreen";
+    const editable =
+      payload.options !== undefined ? payload.options.editor : false;
 
     const columnsDef = payload.schema.fields.map((item) => {
       return {
         title: item.name,
         field: item.name,
         hozAlign: ["integer", "number"].includes(item.type) ? "right" : "left",
-        editor: true
+        editor: editable,
       };
     });
 

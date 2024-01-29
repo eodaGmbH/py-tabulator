@@ -6,7 +6,7 @@ from htmltools import HTMLDependency, Tag
 from pandas import DataFrame
 from shiny import ui
 from shiny.module import resolve_id
-from shiny.render.renderer import Jsonifiable, Renderer
+from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
 tabulator_dep = HTMLDependency(
     "tabulator",
@@ -48,3 +48,22 @@ class render_tabular(Renderer[DataFrame]):
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         return json.loads(value.to_json(orient="table", index=False))
+
+
+class render_tabular_expirimental(Renderer[DataFrame]):
+    editor: bool
+
+    def auto_output_ui(self) -> Tag:
+        return output_tabulator(self.output_id)
+
+    def __init__(self, _fn: ValueFn[DataFrame] = None, *, editor: bool = False) -> None:
+        super().__init__(_fn)
+        self.editor = editor
+
+    async def render(self) -> Jsonifiable:
+        value = await self.fn()
+        # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
+        # TODO: convert with js
+        data = json.loads(value.to_json(orient="table", index=False))
+        data["options"] = {"editor": self.editor}
+        return data
