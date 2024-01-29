@@ -16,7 +16,7 @@ Shiny Express:
 import pandas as pd
 from shiny import render
 from shiny.express import input, ui
-from tabylator import render_tabular
+from tabylator import render_data_frame
 
 
 @render.code
@@ -25,7 +25,7 @@ async def txt():
     return input.tabylator_row()["Name"]
 
 
-@render_tabular
+@render_data_frame
 def tabylator():
     return pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"

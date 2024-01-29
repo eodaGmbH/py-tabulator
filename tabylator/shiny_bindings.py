@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import json
+from typing import Union
 
 from htmltools import HTMLDependency, Tag
 from pandas import DataFrame
 from shiny import ui
 from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
+
+from .tabulator import Tabulator
 
 tabulator_dep = HTMLDependency(
     "tabulator",
@@ -40,7 +43,17 @@ def output_tabulator(id: str, height: int | str = 400):
     )
 
 
-class render_tabular(Renderer[DataFrame]):
+class render_tabulator(Renderer[Tabulator]):
+    def auto_output_ui(self) -> Tag:
+        return output_tabulator(self.output_id)
+
+    async def transform(self, value: Tabulator) -> Jsonifiable:
+        # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
+        # TODO: convert with js
+        return value.to_dict()["df"]
+
+
+class render_data_frame(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 

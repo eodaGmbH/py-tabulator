@@ -1,6 +1,11 @@
 import pandas as pd
 from shiny import App, reactive, render, ui
-from tabylator.shiny_bindings import output_tabulator, render_tabular
+from tabylator.shiny_bindings import (
+    output_tabulator,
+    render_data_frame,
+    render_tabulator,
+)
+from tabylator.tabulator import Tabulator
 
 app_ui = ui.page_fluid(
     ui.output_text_verbatim("txt", placeholder=True),
@@ -9,11 +14,12 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render_tabular
+    @render_tabulator
     def tabylator():
-        return pd.read_csv(
+        df = pd.read_csv(
             "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
         )
+        return Tabulator(df=df)
 
     @render.code
     async def txt():

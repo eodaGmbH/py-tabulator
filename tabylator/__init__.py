@@ -1,1 +1,1 @@
-from .shiny_bindings import output_tabulator, render_tabular
+from .shiny_bindings import output_tabulator, render_data_frame
