@@ -25,13 +25,18 @@ def tabylator():
         df,
         TabulatorOptions(
             headerVisible=True,
-            movableRows=True,
+            # movableRows=True,
             # groupBy=["Sex", "Age"],
             height="600px",
             pagination=True,
-            selectable=True,
+            # selectable=True,
             download=None,
             editor=True,
+            columns=[
+                {"title": "Name", "field": "Name", "editor": True},
+                {"title": "Age", "field": "Age"},
+                {"title": "Gender", "field": "Sex"},
+            ],
         ),
     )
 
@@ -47,4 +52,4 @@ async def trigger_get_data():
 @reactive.event(input.tabylator_get_data)
 async def get_data():
     data = input.tabylator_get_data()
-    print("data", data[0])
+    print("data", data[0], data[1])

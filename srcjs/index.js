@@ -33,6 +33,8 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       ].concat(columnsDef);
     }
 
+    if (payload.options.columns == null) payload.options.columns = columnsDef;
+
     if (payload.options.download) {
       payload.options.footerElement =
         "<button id='tabulator-download-csv' class='tabulator-page'>Download csv</button>";
@@ -45,7 +47,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
           // height: 205,
           data: payload.data,
           layout: "fitColumns",
-          columns: columnsDef,
+          // columns: columnsDef,
         },
         payload.options,
       ),

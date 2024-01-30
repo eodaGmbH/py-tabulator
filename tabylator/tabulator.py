@@ -17,7 +17,10 @@ class TabulatorOptions(object):
     height: str = None
     pagination: bool = False
     selectable: bool = False
+    columns: list = None
     editor: bool = False
+
+    # TODO: Rename to 'download_csv'
     download: Literal["csv", "json"] = None
 
 
