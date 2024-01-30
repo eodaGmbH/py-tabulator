@@ -71,6 +71,16 @@
           Shiny.onInputChange(`${el.id}_get_data`, table.getData());
         }
       });
+      window.addEventListener(
+        "keydown",
+        function(event) {
+          if (event.key === "ArrowDown") {
+            console.log(table.getData()[0]);
+            Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+          }
+        },
+        true
+      );
     }
   };
   Shiny.outputBindings.register(

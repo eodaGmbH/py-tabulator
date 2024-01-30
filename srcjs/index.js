@@ -83,6 +83,20 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         Shiny.onInputChange(`${el.id}_get_data`, table.getData());
       }
     });
+
+    // Add keystrokes events
+    window.addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key === "ArrowDown") {
+          // table.addRow({});
+          console.log(table.getData()[0]);
+          Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+        }
+      },
+      true,
+    );
+    // keystrokes END
   }
 }
 

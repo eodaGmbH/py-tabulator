@@ -47,7 +47,8 @@ def tabylator():
                     "editor": True,
                     "frozen": True,
                     "resizable": False,
-                    "headerFilter": "input",
+                    "headerFilter": True,
+                    "headerFilterParams": {"starts": True},
                 },
                 {
                     "title": "AgeP",
