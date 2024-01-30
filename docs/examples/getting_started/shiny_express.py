@@ -27,6 +27,7 @@ def tabylator():
             height="600px",
             pagination=True,
             selectable=True,
-            download="csv",
+            download=None,
+            editor=True,
         ),
     )

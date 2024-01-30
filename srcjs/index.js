@@ -19,12 +19,11 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
   renderValue(el, payload) {
     console.log("payload", payload);
     // el.style.background = "lightgreen";
-    /*
     const editable =
       payload.options !== undefined ? payload.options.editor : false;
-    */
-    const editable = false;
-    const options = payload.options | {};
+
+    // const editable = false;
+    // const options = payload.options | {};
     let columnsDef = payload.schema.fields.map((item) => {
       return {
         title: item.name,
@@ -33,6 +32,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         editor: editable,
       };
     });
+
     if (payload.options.movableRows === true) {
       columnsDef = [
         {
@@ -44,6 +44,11 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
           minWidth: 30,
         },
       ].concat(columnsDef);
+    }
+
+    if (payload.options.download) {
+      payload.options.footerElement =
+        "<button id='tabulator-download-csv' class='tabulator-page'>Download csv</button>";
     }
 
     const table = new Tabulator(
@@ -65,9 +70,18 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       Shiny.onInputChange(inputName, row.getData());
     });
 
-    if (payload.options.download) {
-      createDownloadButton(el, table);
-    }
+    table.on("cellEdited", function (cell) {
+      console.log("cell edited", cell.getData());
+    });
+
+    table.on("tableBuilt", function () {
+      const downloadButton = document.getElementById("tabulator-download-csv");
+      if (downloadButton) {
+        downloadButton.addEventListener("click", () =>
+          table.download("csv", "data.csv"),
+        );
+      }
+    });
   }
 }
 
