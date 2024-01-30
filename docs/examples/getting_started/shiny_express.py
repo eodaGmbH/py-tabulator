@@ -35,8 +35,14 @@ def tabylator():
             columns=[
                 {"title": "Name", "field": "Name", "editor": True},
                 {"title": "Age", "field": "Age"},
-                {"title": "Gender", "field": "Sex"},
+                {
+                    "title": "Gender",
+                    "field": "Sex",
+                    "editor": "list",
+                    "editorParams": {"values": ["male", "female"]},
+                },
             ],
+            layout="fitDataTable",
         ),
     )
 

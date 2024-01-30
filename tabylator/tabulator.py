@@ -18,6 +18,7 @@ class TabulatorOptions(object):
     pagination: bool = False
     selectable: bool = False
     columns: list = None
+    layout: str = "fitColumns"
     editor: bool = False
 
     # TODO: Rename to 'download_csv'
