@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import json
-from typing import Union
-
 from htmltools import HTMLDependency, Tag
 from pandas import DataFrame
 from shiny import ui

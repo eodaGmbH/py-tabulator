@@ -37,9 +37,11 @@ class Tabulator(object):
         return data
 
 
+"""
 class TabulatorContext(object):
     def get_data(self):
         pass
 
     def add_row(self):
         pass
+"""

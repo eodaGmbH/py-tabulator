@@ -1,9 +1,12 @@
 import pandas as pd
-from shiny import render
+from shiny import reactive, render
 from shiny.express import input, ui
 from tabylator import render_data_frame
 from tabylator.shiny_bindings import render_tabulator, render_tabulator_experimental
 from tabylator.tabulator import Tabulator, TabulatorOptions
+from tabylator.tabulator_context import tabulator_get_data
+
+ui.input_action_button("trigger_get_data", "Get data")
 
 
 @render.code
@@ -31,3 +34,17 @@ def tabylator():
             editor=True,
         ),
     )
+
+
+@reactive.Effect
+@reactive.event(input.trigger_get_data)
+async def trigger_get_data():
+    print("triggered")
+    await tabulator_get_data("tabylator")
+
+
+@reactive.Effect
+@reactive.event(input.tabylator_get_data)
+async def get_data():
+    data = input.tabylator_get_data()
+    print("data", data[0])

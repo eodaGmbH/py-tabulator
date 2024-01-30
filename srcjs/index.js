@@ -71,6 +71,16 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         );
       }
     });
+
+    const messageHandlerName = `tabulator-${el.id}`;
+    // console.log(messageHandlerName);
+    Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+      console.log(payload);
+      if (payload.call === "getData") {
+        console.log("getData call");
+        Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+      }
+    });
   }
 }
 

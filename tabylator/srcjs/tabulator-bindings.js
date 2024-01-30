@@ -61,6 +61,14 @@
           );
         }
       });
+      const messageHandlerName = `tabulator-${el.id}`;
+      Shiny.addCustomMessageHandler(messageHandlerName, (payload2) => {
+        console.log(payload2);
+        if (payload2.call === "getData") {
+          console.log("getData call");
+          Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+        }
+      });
     }
   };
   Shiny.outputBindings.register(
