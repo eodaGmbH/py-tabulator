@@ -35,3 +35,11 @@ class Tabulator(object):
         data = df_to_dict(self.df)
         data["options"] = self.table_options
         return data
+
+
+class TabulatorContext(object):
+    def get_data(self):
+        pass
+
+    def add_row(self):
+        pass

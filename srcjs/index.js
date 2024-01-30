@@ -1,16 +1,3 @@
-function createDownloadButton(el, table) {
-  const container = document.createElement("div");
-  container.id = "download-data";
-  container.style.padding = "10px";
-  const button = document.createElement("button");
-  button.textContent = "Download";
-  button.addEventListener("click", () => {
-    table.download("csv", "data.csv");
-  });
-  container.appendChild(button);
-  el.before(container);
-}
-
 class TabulatorOutputBinding extends Shiny.OutputBinding {
   find(scope) {
     return scope.find(".shiny-tabulator-output");
@@ -71,7 +58,9 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     });
 
     table.on("cellEdited", function (cell) {
-      console.log("cell edited", cell.getData());
+      const inputName = `${el.id}_row_edited`;
+      console.log(inputName, cell.getData());
+      Shiny.onInputChange(inputName, cell.getData());
     });
 
     table.on("tableBuilt", function () {

@@ -48,7 +48,9 @@
         Shiny.onInputChange(inputName, row.getData());
       });
       table.on("cellEdited", function(cell) {
-        console.log("cell edited", cell.getData());
+        const inputName = `${el.id}_row_edited`;
+        console.log(inputName, cell.getData());
+        Shiny.onInputChange(inputName, cell.getData());
       });
       table.on("tableBuilt", function() {
         const downloadButton = document.getElementById("tabulator-download-csv");
