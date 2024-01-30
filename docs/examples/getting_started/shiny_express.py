@@ -3,7 +3,7 @@ from shiny import render
 from shiny.express import input, ui
 from tabylator import render_data_frame
 from tabylator.shiny_bindings import render_tabulator, render_tabulator_experimental
-from tabylator.tabulator import TableOptions, Tabulator
+from tabylator.tabulator import Tabulator, TabulatorOptions
 
 
 @render.code
@@ -20,7 +20,7 @@ def tabylator():
     )
     return Tabulator(
         df,
-        TableOptions(
+        TabulatorOptions(
             headerVisible=True,
             movableRows=True,
             # groupBy=["Sex", "Age"],

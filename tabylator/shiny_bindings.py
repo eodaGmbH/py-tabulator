@@ -9,6 +9,7 @@ from shiny import ui
 from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
+from ._utils import df_to_dict
 from .tabulator import Tabulator
 
 tabulator_dep = HTMLDependency(
@@ -57,10 +58,10 @@ class render_data_frame(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 
-    async def transform(self, value: DataFrame) -> Jsonifiable:
+    async def transform(self, df: DataFrame) -> Jsonifiable:
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
-        data = json.loads(value.to_json(orient="table", index=False))
+        data = df_to_dict(df)
         data["options"] = None
         return data
 
@@ -76,9 +77,9 @@ class render_tabulator_experimental(Renderer[DataFrame]):
         self.editor = editor
 
     async def render(self) -> Jsonifiable:
-        value = await self.fn()
+        df = await self.fn()
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
-        data = json.loads(value.to_json(orient="table", index=False))
+        data = df_to_dict(df)
         data["options"] = {"editor": self.editor}
         return data

@@ -6,29 +6,32 @@ from typing import Literal
 
 from pandas import DataFrame
 
+from ._utils import df_to_dict
+
 
 @dataclass
-class TableOptions(object):
+class TabulatorOptions(object):
     headerVisible: bool = True
     movableRows: bool = False
     groupBy: str = None
     height: str = None
     pagination: bool = False
     selectable: bool = False
+    editor: bool = False
     download: Literal["csv", "json"] = None
 
 
 class Tabulator(object):
     def __init__(
-        self, df: DataFrame, table_options: dict | TableOptions = None
+        self, df: DataFrame, table_options: dict | TabulatorOptions = None
     ) -> None:
         self.df = df
-        if isinstance(table_options, TableOptions):
+        if isinstance(table_options, TabulatorOptions):
             table_options = asdict(table_options)
 
         self.table_options = table_options
 
     def to_dict(self) -> dict:
-        data = json.loads(self.df.to_json(orient="table", index=False))
+        data = df_to_dict(self.df)
         data["options"] = self.table_options
         return data
