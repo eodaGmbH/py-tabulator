@@ -15,6 +15,13 @@ async def txt():
     return input.tabylator_row()["Name"]
 
 
+@render.code
+def row_edited():
+    data = input.tabylator_row_edited()
+    print(data)
+    return f"{data['Name']}, {data['Sex']}"
+
+
 # @render_tabulator_experimental(editor=True)
 @render_tabulator
 def tabylator():
@@ -28,21 +35,48 @@ def tabylator():
             # movableRows=True,
             # groupBy=["Sex", "Age"],
             height="600px",
-            pagination=True,
+            # pagination=True,
             # selectable=True,
             download=None,
             editor=True,
+            resizableColumnFit=False,
             columns=[
-                {"title": "Name", "field": "Name", "editor": True},
-                {"title": "Age", "field": "Age"},
+                {
+                    "title": "Name",
+                    "field": "Name",
+                    "editor": True,
+                    "frozen": True,
+                    "resizable": False,
+                    "headerFilter": "input",
+                },
+                {
+                    "title": "AgeP",
+                    "field": "Age",
+                    "formatter": "progress",
+                },
+                {
+                    "title": "Age",
+                    "field": "Age",
+                    "bottomCalc": "avg",
+                    "headerFilter": "number",
+                },
                 {
                     "title": "Gender",
                     "field": "Sex",
                     "editor": "list",
                     "editorParams": {"values": ["male", "female"]},
+                    "width": 200,
+                    "headerFilter": True,
+                    "headerFilterParams": {
+                        "values": ["male", "female"],
+                        "clearable": True,
+                        "starts": True,
+                    },
                 },
             ],
-            layout="fitDataTable",
+            # layout="fitDataTable",
+            layout="fitColumns",
+            frozenRows=3,
         ),
     )
 

@@ -19,6 +19,8 @@ class TabulatorOptions(object):
     selectable: bool = False
     columns: list = None
     layout: str = "fitColumns"
+    frozenRows: int = None
+    resizableColumnFit: bool = False
     editor: bool = False
 
     # TODO: Rename to 'download_csv'
