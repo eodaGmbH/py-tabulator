@@ -83,7 +83,7 @@ class Tabulator(object):
         # Legacy
         elif isinstance(table_options, TabulatorOptions):
             warn(
-                "'TabulatorOptions' is deprecated and will be removed in one of the next releases. Use 'TablerOptions' instead.",
+                "'TabulatorOptions' is deprecated and will be removed in one of the next releases. Use 'TableOptions' instead.",
                 DeprecationWarning,
                 stacklevel=2,
             )
