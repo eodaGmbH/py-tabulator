@@ -53,7 +53,7 @@ class render_tabulator(Renderer[Tabulator]):
         return value.to_dict()
 
 
-class render_data_frame(Renderer[DataFrame]):
+class render_data_frame_(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 
@@ -65,7 +65,7 @@ class render_data_frame(Renderer[DataFrame]):
         return data
 
 
-class render_tabulator_experimental(Renderer[DataFrame]):
+class render_data_frame(Renderer[DataFrame]):
     editor: bool
 
     def auto_output_ui(self) -> Tag:

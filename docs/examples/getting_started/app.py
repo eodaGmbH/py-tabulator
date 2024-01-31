@@ -1,7 +1,7 @@
 import pandas as pd
 from pytabulator.shiny_bindings import (
     output_tabulator,
-    render_data_frame,
+    render_data_frame_,
     render_tabulator,
 )
 from pytabulator.tabulator import Tabulator
