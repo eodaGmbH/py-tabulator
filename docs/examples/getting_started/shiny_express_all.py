@@ -1,5 +1,5 @@
 import pandas as pd
-from pytabulator.shiny_bindings import render_data_frame, render_tabulator
+from pytabulator.shiny_bindings import render_tabulator
 from pytabulator.tabulator import Tabulator, TabulatorOptions
 from pytabulator.tabulator_context import TabulatorContext
 from shiny import reactive, render
