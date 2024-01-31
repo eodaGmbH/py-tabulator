@@ -82,11 +82,12 @@ def tabulator():
         TabulatorOptions(
             height="600px",
             pagination=True,
+            paginationAddRow="table",
             layout="fitColumns",
             index="PassengerId",
             addRowPos="top",
             selectable=True,
             history=True,
-            editor=True,
+            # editor=True,
         ),
     )

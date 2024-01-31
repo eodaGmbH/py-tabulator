@@ -17,6 +17,7 @@ class TabulatorOptions(object):
     groupBy: str = None
     height: str = None
     pagination: bool = False
+    paginationAddRow: Literal["page", "table"] = "page"
     selectable: Union[str, bool, int] = "highlight"
     columns: list = None
     layout: Literal[
