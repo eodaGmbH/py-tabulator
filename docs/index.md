@@ -8,9 +8,9 @@ Tabulator for Python provides [Shiny for Python](https://shiny.posit.co/py/) bin
 pip install git+https://github.com/eodaGmbH/py-tabulator
 ```
 
-## Getting started
+## Basic usage
 
-Shiny Express:
+Using [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/):
 
 ```python
 -8<-- "getting_started/shiny_express_readme.py"

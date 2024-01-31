@@ -10,7 +10,7 @@ pip install git+https://github.com/eodaGmbH/py-tabulator
 
 ## Getting started
 
-Shiny Express:
+Using [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/):
 
 ```python
 import pandas as pd
