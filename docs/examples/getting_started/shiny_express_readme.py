@@ -1,18 +1,3 @@
-# py-tabulator
-
-Shiny bindings for tabulator JS
-
-## Installation
-
-```bash
-pip install git+https://github.com/eodaGmbH/py-tabulator
-```
-
-## Getting started
-
-Shiny Express:
-
-```python
 import pandas as pd
 from pytabulator import TabulatorOptions, render_data_frame
 from shiny import render
@@ -32,8 +17,3 @@ def tabulator():
     return pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
     )
-```
-
-```bash
-shiny run docs/examples/getting_started/shiny_express.py
-```

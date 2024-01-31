@@ -1,6 +1,6 @@
-# py-tabulator
+# Welcome to Tabulator for Python
 
-Shiny bindings for tabulator JS
+Tabulator for Python provides [Shiny for Python](https://shiny.posit.co/py/) bindings for [Tabulator JS](https://tabulator.info/).
 
 ## Installation
 
@@ -35,5 +35,5 @@ def tabulator():
 ```
 
 ```bash
-shiny run docs/examples/getting_started/shiny_express.py
+shiny run docs/examples/getting_started/shiny_express_all.py
 ```
