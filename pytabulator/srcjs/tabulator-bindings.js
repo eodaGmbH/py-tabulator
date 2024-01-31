@@ -66,13 +66,10 @@
       const messageHandlerName = `tabulator-${el.id}`;
       Shiny.addCustomMessageHandler(messageHandlerName, (payload2) => {
         console.log(payload2);
-        if (payload2.call === "getData") {
-          console.log("getData call");
-          Shiny.onInputChange(`${el.id}_get_data`, table.getData());
-        } else if (payload2.call === "triggerDownload") {
-          console.log("Download triggered");
-          table.download("csv", "test-data.csv");
-        }
+        payload2.calls.forEach(([name, options]) => {
+          console.log(name, options);
+          table[name](...options);
+        });
       });
     }
   };

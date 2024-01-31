@@ -1,7 +1,7 @@
 import pandas as pd
 from pytabulator.shiny_bindings import render_data_frame, render_tabulator
 from pytabulator.tabulator import Tabulator, TabulatorOptions
-from pytabulator.tabulator_context import tabulator_trigger_download
+from pytabulator.tabulator_context import TabulatorContext
 from shiny import reactive, render
 from shiny.express import input, ui
 
@@ -20,7 +20,10 @@ async def txt():
 @reactive.event(input.trigger_download)
 async def trigger_download():
     print("download triggered")
-    await tabulator_trigger_download("tabulator")
+    # await tabulator_trigger_download("tabulator")
+    async with TabulatorContext("tabulator") as table:
+        # table.trigger_download()
+        table.add_row({"Name": "Hans", "Sex": "male"})
 
 
 @render_tabulator

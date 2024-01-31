@@ -78,6 +78,11 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
       console.log(payload);
+      payload.calls.forEach( ([name, options]) => {
+        console.log(name, options);
+        table[name](...options);
+      });
+      /*
       if (payload.call === "getData") {
         console.log("getData call");
         Shiny.onInputChange(`${el.id}_get_data`, table.getData());
@@ -85,6 +90,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         console.log("Download triggered");
         table.download("csv", "test-data.csv");
       }
+     */
     });
   }
 }
