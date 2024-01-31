@@ -1,0 +1,30 @@
+site_name: Tabulator for Python
+
+theme:
+  name: material
+  palette:
+    primary: "green"
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+nav:
+  - Get started:
+    - Welcome to Tabulator for Python: index.md
+    - Example: example.md
+  - Concepts:
+      - Events: events.md
+
+repo_name: py-tabulator
+repo_url: https://github.com/eodaGmbH/py-tabulator
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite:
+  - pymdownx.superfences:
+  - pymdownx.snippets:
+      check_paths: true
+      base_path: [docs/examples, "."]
