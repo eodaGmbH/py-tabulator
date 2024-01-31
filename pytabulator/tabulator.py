@@ -5,8 +5,29 @@ from dataclasses import asdict, dataclass
 from typing import Literal, Union
 
 from pandas import DataFrame
+from pydantic import BaseModel, Field
 
 from ._utils import df_to_dict
+
+
+class TableOptions(BaseModel):
+    index: str = "id"
+    header_visible: bool = Field(True, serialization_alias="headerVisible")
+    movableRows: bool = False
+    groupBy: str = None
+    height: str = None
+    pagination: bool = False
+    paginationAddRow: Literal["page", "table"] = "page"
+    selectable: Union[str, bool, int] = "highlight"
+    columns: list = None
+    layout: Literal[
+        "fitData", "fitDataFill", "fitDataStretch", "fitDataTable", "fitColumns"
+    ] = "fitColumns"
+    addRowPos: Literal["bottom", "top"] = "bottom"
+    frozenRows: int = None
+    rowHeight: int = None
+    resizableColumnFit: bool = False
+    history: bool = False
 
 
 @dataclass

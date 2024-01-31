@@ -9,6 +9,7 @@ readme = "README.md"
 python = ">=3.9,<4.0"
 shiny = "^0.7.0"
 pandas = "^2.2.0"
+pydantic = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
