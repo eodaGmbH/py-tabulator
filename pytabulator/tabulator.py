@@ -5,7 +5,7 @@ from typing import Literal, Union
 from warnings import warn
 
 from pandas import DataFrame
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from ._utils import df_to_dict
 
@@ -17,7 +17,7 @@ class TableOptions(BaseModel):
     header_visible: bool = Field(True, serialization_alias="headerVisible")
     movable_rows: bool = Field(False, serialization_alias="movableRows")
     group_by: Union[str, list] = Field(None, serialization_alias="groupBy")
-    height: str = None
+    height: Union[str, int] = None
     pagination: bool = False
     pagination_add_row: Literal["page", "table"] = Field(
         "page", serialization_alias="paginationAddRow"
@@ -34,6 +34,13 @@ class TableOptions(BaseModel):
     row_height: int = Field(None, serialization_alias="rowHeight")
     resizable_column_fit: bool = Field(False, serialization_alias="resizableColumnFit")
     history: bool = False
+
+    @field_validator("height")
+    def validate_height(cls, v):
+        if isinstance(v, int):
+            return f"{v}px"
+
+        return v
 
     def to_dict(self) -> dict:
         return self.model_dump(by_alias=True, exclude_none=True)

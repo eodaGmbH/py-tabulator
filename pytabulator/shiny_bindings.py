@@ -9,7 +9,7 @@ from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
 from ._utils import df_to_dict
-from .tabulator import Tabulator, TabulatorOptions
+from .tabulator import TableOptions, Tabulator, TabulatorOptions
 
 tabulator_dep = HTMLDependency(
     "tabulator",
@@ -75,7 +75,7 @@ class render_data_frame(Renderer[DataFrame]):
         self,
         _fn: ValueFn[DataFrame] = None,
         *,
-        table_options: TabulatorOptions = TabulatorOptions(),
+        table_options: TableOptions | TabulatorOptions = TableOptions(),
     ) -> None:
         super().__init__(_fn)
         self.table_options = table_options
@@ -85,5 +85,9 @@ class render_data_frame(Renderer[DataFrame]):
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         data = df_to_dict(df)
-        data["options"] = asdict(self.table_options)
+        data["options"] = (
+            asdict(self.table_options)
+            if isinstance(self.table_options, TabulatorOptions)
+            else self.table_options.model_dump(by_alias=True)
+        )
         return data
