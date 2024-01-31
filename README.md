@@ -16,7 +16,7 @@ Shiny Express:
 import pandas as pd
 from shiny import render
 from shiny.express import input, ui
-from tabylator import render_data_frame
+from pytabulator import render_data_frame
 
 
 @render.code
