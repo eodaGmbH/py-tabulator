@@ -11,20 +11,20 @@ ui.input_action_button("trigger_get_data", "Get data")
 
 @render.code
 async def txt():
-    print(input.tabylator_row())
-    return input.tabylator_row()["Name"]
+    print(input.tabulator_row())
+    return input.tabulator_row()["Name"]
 
 
 @render.code
 def row_edited():
-    data = input.tabylator_row_edited()
+    data = input.tabulator_row_edited()
     print(data)
     return f"{data['Name']}, {data['Sex']}"
 
 
 # @render_tabulator_experimental(editor=True)
 @render_tabulator
-def tabylator():
+def tabulator():
     df = pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
     )
@@ -86,11 +86,11 @@ def tabylator():
 @reactive.event(input.trigger_get_data)
 async def trigger_get_data():
     print("triggered")
-    await tabulator_get_data("tabylator")
+    await tabulator_get_data("tabulator")
 
 
 @reactive.Effect
-@reactive.event(input.tabylator_get_data)
+@reactive.event(input.tabulator_get_data)
 async def get_data():
-    data = input.tabylator_get_data()
+    data = input.tabulator_get_data()
     print("data", data[0], data[1])
