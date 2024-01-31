@@ -1,6 +1,6 @@
 import pandas as pd
 from pytabulator.shiny_bindings import render_tabulator
-from pytabulator.tabulator import Tabulator, TabulatorOptions
+from pytabulator.tabulator import TableOptions, Tabulator, TabulatorOptions
 from shiny import render
 from shiny.express import input, ui
 
@@ -20,8 +20,8 @@ def tabulator():
     )
     return Tabulator(
         df,
-        TabulatorOptions(
-            height="600px",
+        TableOptions(
+            height=600,
             pagination=True,
             layout="fitColumns",
         ),
