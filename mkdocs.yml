@@ -12,6 +12,7 @@ nav:
   - Get started:
     - Welcome to Tabulator for Python: index.md
     - Example: example.md
+    - Changelog: changelog.md
   - Concepts:
       - Table: table.md
       - Columns and filters: columns.md
