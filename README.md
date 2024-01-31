@@ -1,6 +1,6 @@
 # py-tabulator
 
-Shiny bindings for tabulator JS
+[Shiny for Python](https://shiny.posit.co/py/) bindings for [Tabulator JS](https://tabulator.info/)
 
 ## Installation
 
@@ -14,7 +14,7 @@ Shiny Express:
 
 ```python
 import pandas as pd
-from pytabulator import TabulatorOptions, render_data_frame
+from pytabulator import TableOptions, render_data_frame
 from shiny import render
 from shiny.express import input, ui
 
@@ -27,7 +27,7 @@ async def txt():
     return input.tabulator_row()["Name"]
 
 
-@render_data_frame(table_options=TabulatorOptions(height="500px"))
+@render_data_frame(table_options=TableOptions(height=500))
 def tabulator():
     return pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"

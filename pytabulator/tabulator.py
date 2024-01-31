@@ -17,7 +17,7 @@ class TableOptions(BaseModel):
     header_visible: bool = Field(True, serialization_alias="headerVisible")
     movable_rows: bool = Field(False, serialization_alias="movableRows")
     group_by: Union[str, list] = Field(None, serialization_alias="groupBy")
-    height: Union[str, int] = None
+    height: Union[int, str] = None
     pagination: bool = False
     pagination_add_row: Literal["page", "table"] = Field(
         "page", serialization_alias="paginationAddRow"

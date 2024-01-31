@@ -30,16 +30,12 @@ tabulator_bindings_dep = HTMLDependency(
 )
 
 
-def output_tabulator(id: str, height: int | str = 400):
-    if isinstance(height, int):
-        height = f"{height}px"
-
+def output_tabulator(id: str):
     return ui.div(
         tabulator_dep,
         tabulator_bindings_dep,
         id=resolve_id(id),
         class_="shiny-tabulator-output",
-        # style=f"height: {height}",
     )
 
 
@@ -53,6 +49,7 @@ class render_tabulator(Renderer[Tabulator]):
         return value.to_dict()
 
 
+# DEPRECATED
 class render_data_frame_(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
