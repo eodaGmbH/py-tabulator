@@ -9,6 +9,10 @@ ui.div("Click on row to print name.", style="padding: 10px;")
 
 ui.input_action_button("trigger_download", "Download")
 
+ui.input_action_button("add_row", "Add row")
+
+ui.input_action_button("trigger_get_data", "Get data")
+
 
 @render.code
 async def txt():
@@ -20,10 +24,28 @@ async def txt():
 @reactive.event(input.trigger_download)
 async def trigger_download():
     print("download triggered")
-    # await tabulator_trigger_download("tabulator")
     async with TabulatorContext("tabulator") as table:
-        # table.trigger_download()
+        table.trigger_download()
+
+
+@reactive.Effect
+@reactive.event(input.add_row)
+async def add_row():
+    async with TabulatorContext("tabulator") as table:
         table.add_row({"Name": "Hans", "Sex": "male"})
+
+
+@reactive.Effect
+@reactive.event(input.trigger_get_data)
+async def trigger_get_data():
+    async with TabulatorContext("tabulator") as table:
+        table.trigger_get_data()
+
+
+@reactive.Effect
+@reactive.event(input.tabulator_data)
+def tabulator_data():
+    print(input.tabulator_data()[0])
 
 
 @render_tabulator

@@ -78,7 +78,13 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
       console.log(payload);
-      payload.calls.forEach( ([name, options]) => {
+      payload.calls.forEach(([name, options]) => {
+        if (name === "getData") {
+          console.log("custom call");
+          Shiny.onInputChange(`${el.id}_data`, table.getData());
+          return;
+        }
+
         console.log(name, options);
         table[name](...options);
       });

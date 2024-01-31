@@ -67,6 +67,11 @@
       Shiny.addCustomMessageHandler(messageHandlerName, (payload2) => {
         console.log(payload2);
         payload2.calls.forEach(([name, options]) => {
+          if (name === "getData") {
+            console.log("custom call");
+            Shiny.onInputChange(`${el.id}_data`, table.getData());
+            return;
+          }
           console.log(name, options);
           table[name](...options);
         });
