@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import asdict
+
 from htmltools import HTMLDependency, Tag
 from pandas import DataFrame
 from shiny import ui
@@ -7,7 +9,7 @@ from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
 from ._utils import df_to_dict
-from .tabulator import Tabulator
+from .tabulator import Tabulator, TabulatorOptions
 
 tabulator_dep = HTMLDependency(
     "tabulator",
@@ -59,7 +61,7 @@ class render_data_frame(Renderer[DataFrame]):
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         data = df_to_dict(df)
-        data["options"] = None
+        data["options"] = {}
         return data
 
 
@@ -69,14 +71,19 @@ class render_tabulator_experimental(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 
-    def __init__(self, _fn: ValueFn[DataFrame] = None, *, editor: bool = False) -> None:
+    def __init__(
+        self,
+        _fn: ValueFn[DataFrame] = None,
+        *,
+        table_options: TabulatorOptions = TabulatorOptions(),
+    ) -> None:
         super().__init__(_fn)
-        self.editor = editor
+        self.table_options = table_options
 
     async def render(self) -> Jsonifiable:
         df = await self.fn()
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         data = df_to_dict(df)
-        data["options"] = {"editor": self.editor}
+        data["options"] = asdict(self.table_options)
         return data

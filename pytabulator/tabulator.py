@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass
-from typing import Literal
+from typing import Literal, Union
 
 from pandas import DataFrame
 
@@ -16,7 +16,7 @@ class TabulatorOptions(object):
     groupBy: str = None
     height: str = None
     pagination: bool = False
-    selectable: bool = False
+    selectable: Union[str, bool, int] = "highlight"
     columns: list = None
     layout: str = "fitColumns"
     frozenRows: int = None
