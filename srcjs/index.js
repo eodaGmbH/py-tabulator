@@ -81,22 +81,11 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       if (payload.call === "getData") {
         console.log("getData call");
         Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+      } else if (payload.call === "triggerDownload") {
+        console.log("Download triggered");
+        table.download("csv", "test-data.csv");
       }
     });
-
-    // Add keystrokes events
-    window.addEventListener(
-      "keydown",
-      function (event) {
-        if (event.key === "ArrowDown") {
-          // table.addRow({});
-          console.log(table.getData()[0]);
-          Shiny.onInputChange(`${el.id}_get_data`, table.getData());
-        }
-      },
-      true,
-    );
-    // keystrokes END
   }
 }
 

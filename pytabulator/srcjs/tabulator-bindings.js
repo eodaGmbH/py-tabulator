@@ -69,18 +69,11 @@
         if (payload2.call === "getData") {
           console.log("getData call");
           Shiny.onInputChange(`${el.id}_get_data`, table.getData());
+        } else if (payload2.call === "triggerDownload") {
+          console.log("Download triggered");
+          table.download("csv", "test-data.csv");
         }
       });
-      window.addEventListener(
-        "keydown",
-        function(event) {
-          if (event.key === "ArrowDown") {
-            console.log(table.getData()[0]);
-            Shiny.onInputChange(`${el.id}_get_data`, table.getData());
-          }
-        },
-        true
-      );
     }
   };
   Shiny.outputBindings.register(
