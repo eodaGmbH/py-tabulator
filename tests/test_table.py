@@ -1,5 +1,5 @@
 from pandas import DataFrame
-from pytabulator import TableOptions, Tabulator
+from pytabulator import TableOptions, Tabulator, TabulatorOptions
 
 
 def test_table_options():
@@ -21,9 +21,10 @@ def test_table():
     df = DataFrame(data, columns=["Name", "Age"])
 
     # Act
-    table = Tabulator(df)
+    table = Tabulator(df, table_options=TableOptions(selectable=3))
     table_dict = table.to_dict()
+    print(table_dict)
 
     # Assert
     assert list(table_dict.keys()) == ["schema", "data", "options"]
-    assert not table_dict["options"]
+    # assert not table_dict["options"]

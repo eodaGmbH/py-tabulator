@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from typing import Literal, Union
+from warnings import warn
 
 from pandas import DataFrame
 from pydantic import BaseModel, Field
@@ -65,10 +66,20 @@ class TabulatorOptions(object):
 
 class Tabulator(object):
     def __init__(
-        self, df: DataFrame, table_options: dict | TabulatorOptions = None
+        self,
+        df: DataFrame,
+        table_options: TableOptions | dict | TabulatorOptions = None,
     ) -> None:
         self.df = df
-        if isinstance(table_options, TabulatorOptions):
+        if isinstance(table_options, TableOptions):
+            table_options = table_options.model_dump(by_alias=True)
+        # Legacy
+        elif isinstance(table_options, TabulatorOptions):
+            warn(
+                "'TabulatorOptions' is deprecated and will be removed in one of the next releases. Use 'TablerOptions' instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
             table_options = asdict(table_options)
 
         self.table_options = table_options
