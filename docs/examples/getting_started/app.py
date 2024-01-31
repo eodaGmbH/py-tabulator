@@ -1,11 +1,11 @@
 import pandas as pd
-from shiny import App, reactive, render, ui
-from tabylator.shiny_bindings import (
+from pytabulator.shiny_bindings import (
     output_tabulator,
     render_data_frame,
     render_tabulator,
 )
-from tabylator.tabulator import Tabulator
+from pytabulator.tabulator import Tabulator
+from shiny import App, reactive, render, ui
 
 app_ui = ui.page_fluid(
     ui.output_text_verbatim("txt", placeholder=True),

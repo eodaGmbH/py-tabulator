@@ -1,10 +1,10 @@
 import pandas as pd
+from pytabulator import render_data_frame
+from pytabulator.shiny_bindings import render_tabulator, render_tabulator_experimental
+from pytabulator.tabulator import Tabulator, TabulatorOptions
+from pytabulator.tabulator_context import tabulator_get_data
 from shiny import reactive, render
 from shiny.express import input, ui
-from tabylator import render_data_frame
-from tabylator.shiny_bindings import render_tabulator, render_tabulator_experimental
-from tabylator.tabulator import Tabulator, TabulatorOptions
-from tabylator.tabulator_context import tabulator_get_data
 
 ui.input_action_button("trigger_get_data", "Get data")
 

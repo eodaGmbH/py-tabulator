@@ -12,7 +12,7 @@ from .tabulator import Tabulator
 tabulator_dep = HTMLDependency(
     "tabulator",
     "5.5.4",
-    source={"package": "tabylator", "subdir": "srcjs"},
+    source={"package": "pytabulator", "subdir": "srcjs"},
     script={"src": "tabulator.min.js", "type": "module"},
     stylesheet={"href": "tabulator.min.css"},
     all_files=False,
@@ -22,7 +22,7 @@ tabulator_dep = HTMLDependency(
 tabulator_bindings_dep = HTMLDependency(
     "tabulatorbindings",
     "0.1.0",
-    source={"package": "tabylator", "subdir": "srcjs"},
+    source={"package": "pytabulator", "subdir": "srcjs"},
     script={"src": "tabulator-bindings.js", "type": "module"},
     all_files=False,
 )
