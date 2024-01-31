@@ -5,13 +5,16 @@ from pytabulator.tabulator_context import TabulatorContext
 from shiny import reactive, render
 from shiny.express import input, ui
 
-ui.div("Click on row to print name.", style="padding: 10px;")
+ui.h1("Interactive Table", style="padding: 10px;")
 
 ui.input_action_button("trigger_download", "Download")
-
 ui.input_action_button("add_row", "Add row")
-
+ui.input_action_button("delete_selected_rows", "Delete selected rows")
+ui.input_action_button("undo", "Undo")
+ui.input_action_button("redo", "Redo")
 ui.input_action_button("trigger_get_data", "Get data")
+
+ui.div("Click on row to print name.", style="padding: 10px;")
 
 
 @render.code
@@ -25,7 +28,7 @@ async def txt():
 async def trigger_download():
     print("download triggered")
     async with TabulatorContext("tabulator") as table:
-        table.trigger_download()
+        table.trigger_download("json")
 
 
 @reactive.Effect
@@ -33,6 +36,27 @@ async def trigger_download():
 async def add_row():
     async with TabulatorContext("tabulator") as table:
         table.add_row({"Name": "Hans", "Sex": "male"})
+
+
+@reactive.Effect
+@reactive.event(input.delete_selected_rows)
+async def delete_selected_rows():
+    async with TabulatorContext("tabulator") as table:
+        table.delete_selected_rows()
+
+
+@reactive.Effect
+@reactive.event(input.undo)
+async def undo():
+    async with TabulatorContext("tabulator") as table:
+        table.undo()
+
+
+@reactive.Effect
+@reactive.event(input.redo)
+async def redo():
+    async with TabulatorContext("tabulator") as table:
+        table.redo()
 
 
 @reactive.Effect
@@ -59,5 +83,10 @@ def tabulator():
             height="600px",
             pagination=True,
             layout="fitColumns",
+            index="PassengerId",
+            addRowPos="top",
+            selectable=True,
+            history=True,
+            editor=True,
         ),
     )

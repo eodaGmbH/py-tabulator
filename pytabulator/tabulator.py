@@ -11,6 +11,7 @@ from ._utils import df_to_dict
 
 @dataclass
 class TabulatorOptions(object):
+    index: str = "id"
     headerVisible: bool = True
     movableRows: bool = False
     groupBy: str = None
@@ -18,9 +19,14 @@ class TabulatorOptions(object):
     pagination: bool = False
     selectable: Union[str, bool, int] = "highlight"
     columns: list = None
-    layout: str = "fitColumns"
+    layout: Literal[
+        "fitData", "fitDataFill", "fitDataStretch", "fitDataTable", "fitColumns"
+    ] = "fitColumns"
+    addRowPos: Literal["bottom", "top"] = "bottom"
     frozenRows: int = None
+    rowHeight: int = None
     resizableColumnFit: bool = False
+    history: bool = False
     editor: bool = False
 
     # TODO: Rename to 'download_csv'

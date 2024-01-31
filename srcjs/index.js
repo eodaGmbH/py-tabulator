@@ -77,11 +77,23 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     const messageHandlerName = `tabulator-${el.id}`;
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+      // Use table.options.index in deleteRow for selected rows
+      // table.row.getIndex()
       console.log(payload);
       payload.calls.forEach(([name, options]) => {
         if (name === "getData") {
           console.log("custom call");
           Shiny.onInputChange(`${el.id}_data`, table.getData());
+          return;
+        }
+
+        if (name === "deleteSelectedRows") {
+          console.log("custom call");
+          const rows = table.getSelectedRows();
+          rows.forEach((row) => {
+            console.log(row.getIndex());
+            table.deleteRow(row.getIndex());
+          });
           return;
         }
 
