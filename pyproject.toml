@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pytabulator"
-version = "0.1.0"
-description = ""
+version = "0.2.0"
+description = "Shiny bindings for Tabulator JS"
 authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]
 readme = "README.md"
 
@@ -9,6 +9,7 @@ readme = "README.md"
 python = ">=3.9,<4.0"
 shiny = "^0.7.0"
 pandas = "^2.2.0"
+pydantic = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

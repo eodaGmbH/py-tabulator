@@ -11,9 +11,12 @@ theme:
 nav:
   - Get started:
     - Welcome to Tabulator for Python: index.md
-    - Example: example.md
+    - Detailed example: example.md
+    - Changelog: changelog.md
   - Concepts:
-      - Events: events.md
+      - Table: table.md
+      - Columns and filters: columns.md
+      - Events and triggers: events.md
 
 repo_name: py-tabulator
 repo_url: https://github.com/eodaGmbH/py-tabulator
