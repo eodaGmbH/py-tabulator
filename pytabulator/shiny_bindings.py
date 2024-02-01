@@ -31,6 +31,11 @@ tabulator_bindings_dep = HTMLDependency(
 
 
 def output_tabulator(id: str):
+    """Create an output container for a `Tabulator` table
+
+    Args:
+        id (str): An output id of a `Tabulator` table.
+    """
     return ui.div(
         tabulator_dep,
         tabulator_bindings_dep,
@@ -40,6 +45,8 @@ def output_tabulator(id: str):
 
 
 class render_tabulator(Renderer[Tabulator]):
+    """A decorator for a function that returns a `Tabulator` table"""
+
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
 
@@ -63,6 +70,12 @@ class render_data_frame_(Renderer[DataFrame]):
 
 
 class render_data_frame(Renderer[DataFrame]):
+    """A decorator for a function that returns a `DataFrame`
+
+    Args:
+        table_options (TableOptions): Table options.
+    """
+
     editor: bool
 
     def auto_output_ui(self) -> Tag:

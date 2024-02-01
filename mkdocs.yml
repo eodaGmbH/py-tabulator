@@ -43,3 +43,6 @@ plugins:
             docstring_section_style: table
             show_root_heading: true
             show_source: True
+
+watch:
+  - pytabulator

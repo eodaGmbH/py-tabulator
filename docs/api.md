@@ -1,7 +1,18 @@
-::: pytabulator.render_tabulator
+## Basic usage
 
-::: pytabulator.render_data_frame
+```python
+-8<-- "getting_started/shiny_express_readme.py"
+```
 
-::: pytabulator.Tabulator
+See also [detailed example](../example).
 
-::: pytabulator.TabulatorContext
+::: pytabulator
+    options:
+        show_root_heading: true
+        members:
+            - output_tabulator
+            - render_tabulator
+            - render_data_frame
+            - TableOptions
+            - Tabulator
+            - TabulatorContext
