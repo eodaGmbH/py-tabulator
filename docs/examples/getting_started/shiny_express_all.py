@@ -72,6 +72,12 @@ def tabulator_data():
     print(input.tabulator_data()[0])
 
 
+@reactive.Effect
+@reactive.event(input.tabulator_rows_selected)
+def tabulator_data():
+    print("selected rows", input.tabulator_rows_selected())
+
+
 @render_tabulator
 def tabulator():
     df = pd.read_csv(
