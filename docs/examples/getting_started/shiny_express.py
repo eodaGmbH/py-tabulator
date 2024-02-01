@@ -8,8 +8,8 @@ ui.input_action_button("trigger_get_data", "Get data")
 
 @render.code
 async def txt():
-    print(input.tabulator_row())
-    return input.tabulator_row()["Name"]
+    print(input.tabulator_row_clicked())
+    return input.tabulator_row_clicked()["Name"]
 
 
 @render.code

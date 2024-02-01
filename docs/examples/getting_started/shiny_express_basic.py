@@ -1,6 +1,6 @@
 import pandas as pd
 from pytabulator.shiny_bindings import render_tabulator
-from pytabulator.tabulator import TableOptions, Tabulator, TabulatorOptions
+from pytabulator.tabulator import TableOptions, Tabulator
 from shiny import render
 from shiny.express import input, ui
 
@@ -9,8 +9,8 @@ ui.div("Click on row to print name.", style="padding: 10px;")
 
 @render.code
 async def txt():
-    print(input.tabulator_row())
-    return input.tabulator_row()["Name"]
+    print(input.tabulator_row_clicked())
+    return input.tabulator_row_clicked()["Name"]
 
 
 @render_tabulator

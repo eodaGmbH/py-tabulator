@@ -19,8 +19,8 @@ ui.div("Click on row to print name.", style="padding: 10px;")
 
 @render.code
 async def txt():
-    print(input.tabulator_row())
-    return input.tabulator_row()["Name"]
+    print(input.tabulator_row_clicked())
+    return input.tabulator_row_clicked()["Name"]
 
 
 @reactive.Effect

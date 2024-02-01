@@ -54,7 +54,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     );
 
     table.on("rowClick", function (e, row) {
-      const inputName = `${el.id}_row`;
+      const inputName = `${el.id}_row_clicked`;
       console.log(inputName, row.getData());
       Shiny.onInputChange(inputName, row.getData());
     });
@@ -77,8 +77,6 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     const messageHandlerName = `tabulator-${el.id}`;
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
-      // Use table.options.index in deleteRow for selected rows
-      // table.row.getIndex()
       console.log(payload);
       payload.calls.forEach(([name, options]) => {
         if (name === "getData") {

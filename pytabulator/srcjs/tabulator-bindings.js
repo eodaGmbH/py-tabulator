@@ -45,7 +45,7 @@
         )
       );
       table.on("rowClick", function(e, row) {
-        const inputName = `${el.id}_row`;
+        const inputName = `${el.id}_row_clicked`;
         console.log(inputName, row.getData());
         Shiny.onInputChange(inputName, row.getData());
       });
