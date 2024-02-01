@@ -8,7 +8,11 @@
 pip install git+https://github.com/eodaGmbH/py-tabulator
 ```
 
-## Getting started
+## Docs
+
+- https://eodagmbh.github.io/py-tabulator/
+
+## Basic usage
 
 Using [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/):
 
