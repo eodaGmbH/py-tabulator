@@ -1,10 +1,29 @@
 import pandas as pd
-from pytabulator.shiny_bindings import render_tabulator
-from pytabulator.tabulator import Tabulator, TabulatorOptions
-from pytabulator.tabulator_context import TabulatorContext
+from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
 from shiny import reactive, render
 from shiny.express import input, ui
 
+# Fetch data
+#
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+)
+
+# Setup
+#
+table_options = TableOptions(
+    height=600,
+    pagination=True,
+    pagination_add_row="table",
+    layout="fitColumns",
+    index="PassengerId",
+    add_row_pos="top",
+    selectable=True,
+    history=True,
+)
+
+# Shiny Express App
+#
 ui.h1("Interactive Table", style="padding: 10px;")
 
 ui.input_action_button("trigger_download", "Download")
@@ -14,13 +33,16 @@ ui.input_action_button("undo", "Undo")
 ui.input_action_button("redo", "Redo")
 ui.input_action_button("trigger_get_data", "Submit data")
 
-ui.div("Click on row(s) to print name.", style="padding: 10px;"),
+ui.div("Click on rows to print name.", style="padding: 10px;"),
 
 
 @render.code
 async def txt():
     print(input.tabulator_row_clicked())
     return input.tabulator_row_clicked()["Name"]
+
+
+ui.div("Select multiple rows to print names of selected rows.", style="padding: 10px;"),
 
 
 @render.code
@@ -81,21 +103,4 @@ def tabulator_data():
 
 @render_tabulator
 def tabulator():
-    df = pd.read_csv(
-        "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
-    )
-    return Tabulator(
-        df,
-        TabulatorOptions(
-            height="600px",
-            pagination=True,
-            paginationAddRow="table",
-            layout="fitColumns",
-            index="PassengerId",
-            addRowPos="top",
-            selectable=True,
-            history=True,
-            # editor=True,
-            # initialFilter=[{"field": "Sex", "type": "=", "value": "female"}],
-        ),
-    )
+    return Tabulator(df, table_options)
