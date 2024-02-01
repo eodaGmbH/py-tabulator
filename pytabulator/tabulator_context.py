@@ -56,18 +56,3 @@ class TabulatorContext(object):
     def trigger_get_data(self) -> None:
         """Trigger sending data"""
         self.add_call("getData")
-
-
-"""
-async def tabulator_get_data(id: str, session: Session = None) -> None:
-    await require_active_session(session).send_custom_message(
-        f"tabulator-{id}", {"id": id, "call": "getData"}
-    )
-"""
-
-"""
-async def tabulator_trigger_download(id: str, session: Session = None) -> None:
-    await require_active_session(session).send_custom_message(
-        f"tabulator-{id}", {"id": id, "call": "triggerDownload"}
-    )
-"""

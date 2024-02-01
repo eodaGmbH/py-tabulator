@@ -1,4 +1,26 @@
 (() => {
+  // srcjs/widget.js
+  function run_calls(el, table, calls) {
+    calls.forEach(([method_name, options]) => {
+      if (method_name === "getData") {
+        console.log("custom call");
+        Shiny.onInputChange(`${el.id}_data`, table.getData());
+        return;
+      }
+      if (method_name === "deleteSelectedRows") {
+        console.log("custom call");
+        const rows = table.getSelectedRows();
+        rows.forEach((row) => {
+          console.log(row.getIndex());
+          table.deleteRow(row.getIndex());
+        });
+        return;
+      }
+      console.log(method_name, options);
+      table[method_name](...options);
+    });
+  }
+
   // srcjs/index.js
   var TabulatorOutputBinding = class extends Shiny.OutputBinding {
     find(scope) {
@@ -45,14 +67,25 @@
         )
       );
       table.on("rowClick", function(e, row) {
-        const inputName = `${el.id}_row`;
+        const inputName = `${el.id}_row_clicked`;
         console.log(inputName, row.getData());
         Shiny.onInputChange(inputName, row.getData());
+      });
+      table.on("rowClick", (e, row) => {
+        const inputName = `${el.id}_rows_selected`;
+        const data = table.getSelectedRows().map((row2) => row2.getData());
+        console.log(inputName, data);
+        Shiny.onInputChange(inputName, data);
       });
       table.on("cellEdited", function(cell) {
         const inputName = `${el.id}_row_edited`;
         console.log(inputName, cell.getData());
         Shiny.onInputChange(inputName, cell.getData());
+      });
+      table.on("dataFiltered", function(filters, rows) {
+        const data = rows.map((row) => row.getData());
+        console.log(data);
+        Shiny.onInputChange(`${el.id}_data_filtered`, data);
       });
       table.on("tableBuilt", function() {
         const downloadButton = document.getElementById("tabulator-download-csv");
@@ -66,24 +99,7 @@
       const messageHandlerName = `tabulator-${el.id}`;
       Shiny.addCustomMessageHandler(messageHandlerName, (payload2) => {
         console.log(payload2);
-        payload2.calls.forEach(([name, options]) => {
-          if (name === "getData") {
-            console.log("custom call");
-            Shiny.onInputChange(`${el.id}_data`, table.getData());
-            return;
-          }
-          if (name === "deleteSelectedRows") {
-            console.log("custom call");
-            const rows = table.getSelectedRows();
-            rows.forEach((row) => {
-              console.log(row.getIndex());
-              table.deleteRow(row.getIndex());
-            });
-            return;
-          }
-          console.log(name, options);
-          table[name](...options);
-        });
+        run_calls(el, table, payload2.calls);
       });
     }
   };
