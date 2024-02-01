@@ -1,3 +1,5 @@
+from random import randrange
+
 import pandas as pd
 from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
 from shiny import reactive, render
@@ -12,7 +14,7 @@ df = pd.read_csv(
 # Setup
 #
 table_options = TableOptions(
-    height=600,
+    height=400,
     pagination=True,
     pagination_add_row="table",
     layout="fitColumns",
@@ -33,6 +35,10 @@ ui.input_action_button("undo", "Undo")
 ui.input_action_button("redo", "Redo")
 ui.input_action_button("trigger_get_data", "Submit data")
 
+ui.div(
+    ui.input_text("name", "Click on 'Add row' to add the Person to the table."),
+    style="padding-top: 20px;",
+)
 ui.div("Click on rows to print name.", style="padding: 10px;"),
 
 
@@ -52,19 +58,32 @@ def selected_rows():
     return "\n".join(output)
 
 
+@render_tabulator
+def tabulator():
+    return Tabulator(df, table_options)
+
+
 @reactive.Effect
 @reactive.event(input.trigger_download)
 async def trigger_download():
     print("download triggered")
     async with TabulatorContext("tabulator") as table:
-        table.trigger_download("json")
+        table.trigger_download("csv")
 
 
 @reactive.Effect
 @reactive.event(input.add_row)
 async def add_row():
     async with TabulatorContext("tabulator") as table:
-        table.add_row({"Name": "Hans", "Sex": "male"})
+        table.add_row(
+            {
+                "Name": input.name() or "Hans",
+                "Age": randrange(55),
+                "Survived": randrange(2),
+                "PassengerId": randrange(10000, 20000, 1),
+                "SibSp": randrange(9),
+            }
+        )
 
 
 @reactive.Effect
@@ -99,8 +118,3 @@ async def trigger_get_data():
 @reactive.event(input.tabulator_data)
 def tabulator_data():
     print(input.tabulator_data()[0])
-
-
-@render_tabulator
-def tabulator():
-    return Tabulator(df, table_options)
