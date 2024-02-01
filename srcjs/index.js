@@ -59,6 +59,13 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       Shiny.onInputChange(inputName, row.getData());
     });
 
+    table.on("rowClick", (e, row) => {
+      const inputName = `${el.id}_rows_selected`;
+      const data = table.getSelectedRows().map((row) => row.getData());
+      console.log(inputName, data);
+      Shiny.onInputChange(inputName, data);
+    });
+
     table.on("cellEdited", function (cell) {
       const inputName = `${el.id}_row_edited`;
       console.log(inputName, cell.getData());
@@ -98,15 +105,6 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         console.log(name, options);
         table[name](...options);
       });
-      /*
-      if (payload.call === "getData") {
-        console.log("getData call");
-        Shiny.onInputChange(`${el.id}_get_data`, table.getData());
-      } else if (payload.call === "triggerDownload") {
-        console.log("Download triggered");
-        table.download("csv", "test-data.csv");
-      }
-     */
     });
   }
 }

@@ -49,6 +49,12 @@
         console.log(inputName, row.getData());
         Shiny.onInputChange(inputName, row.getData());
       });
+      table.on("rowClick", (e, row) => {
+        const inputName = `${el.id}_rows_selected`;
+        const data = table.getSelectedRows().map((row2) => row2.getData());
+        console.log(inputName, data);
+        Shiny.onInputChange(inputName, data);
+      });
       table.on("cellEdited", function(cell) {
         const inputName = `${el.id}_row_edited`;
         console.log(inputName, cell.getData());

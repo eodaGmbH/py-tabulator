@@ -32,7 +32,7 @@ def tabulator():
             group_by=["Sex", "Age"],
             height=500,
             pagination=True,
-            selectable=1,
+            selectable=3,
             resizableColumnFit=False,
             columns=[
                 {
