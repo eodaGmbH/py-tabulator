@@ -4,9 +4,10 @@
 
 Tabulator for Python provides the following reactive inputs:
 
-- `row-on-click` event: Sends the data of the selected row. The name of the `input` is made up of the `output_id` + `_row`.
-- `row-edited` event: Sends the data of the edited row. The event is fired each time a cell of the row is edited. The name of the `input` is made up of the `output_id` + `_row_edited`.
-- `data`: Sends the complete data of the table
+- `input.{output_id}_row_clicked` event: Sends the data of the clicked row.
+- `input.{output_id}_row_edited` event: Sends the data of the edited row. This event is fired each time a cell of the row is edited.
+- `input.{output_id}_rows_selected` event: Sends the data of all selected rows. This event is fired each time a new row is selected.
+- `input.{output_id}_data`: Sends the complete data of the table. This event must be triggered from Shiny.
 
 ```python
 from shiny import render
@@ -17,7 +18,7 @@ from pytabulator import render_data_frame
 # in this case (Shiny Express) the function name corresponds to the 'output_id'
 # output_id = "tabulator"
 #
-# on-row-click event: input.tabulator_row
+# on-row-clicked event: input.tabulator_row_clicked
 # on-row-edited event: input.tabulator_row_edited
 #
 @render_data_frame
@@ -29,8 +30,8 @@ def tabulator():
 #
 @render.code
 async def txt():
-    print(input.tabulator_row())
-    return input.tabulator_row()["Name"]
+    print(input.tabulator_row_clicked())
+    return input.tabulator_row_clicked()["Name"]
 
 
 # row-edited event

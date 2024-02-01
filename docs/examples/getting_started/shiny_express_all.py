@@ -23,6 +23,13 @@ async def txt():
     return input.tabulator_row_clicked()["Name"]
 
 
+@render.code
+def selected_rows():
+    data = input.tabulator_rows_selected()
+    output = [item["Name"] for item in data]
+    return "\n".join(output)
+
+
 @reactive.Effect
 @reactive.event(input.trigger_download)
 async def trigger_download():
@@ -70,12 +77,6 @@ async def trigger_get_data():
 @reactive.event(input.tabulator_data)
 def tabulator_data():
     print(input.tabulator_data()[0])
-
-
-@reactive.Effect
-@reactive.event(input.tabulator_rows_selected)
-def tabulator_data():
-    print("selected rows", input.tabulator_rows_selected())
 
 
 @render_tabulator
