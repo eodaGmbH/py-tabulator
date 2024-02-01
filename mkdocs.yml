@@ -11,7 +11,7 @@ theme:
 nav:
   - Get started:
     - Welcome to Tabulator for Python: index.md
-    - Example: example.md
+    - Detailed example: example.md
     - Changelog: changelog.md
   - Concepts:
       - Table: table.md

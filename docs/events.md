@@ -7,7 +7,8 @@ Tabulator for Python provides the following reactive inputs:
 - `input.{output_id}_row_clicked` event: Sends the data of the clicked row.
 - `input.{output_id}_row_edited` event: Sends the data of the edited row. This event is fired each time a cell of the row is edited.
 - `input.{output_id}_rows_selected` event: Sends the data of all selected rows. This event is fired each time a new row is selected.
-- `input.{output_id}_data`: Sends the complete data of the table. This event must be triggered from Shiny.
+- `input.{output_id}_data` event: Sends the complete data of the table. This event must be triggered from Shiny.
+- `input.{output_id}_data_filtered` event: Sends data of filtered rows. This event is triggered each time a filter is applied.
 
 ```python
 from shiny import render

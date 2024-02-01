@@ -5,7 +5,7 @@
 * Add docs
 * Rename `TabulatorOptions` to `TableOptions`
 * Use Pydantic for `TableOptions`
-
+* Add more `input` events
 
 ## pytabular v0.1.0 (2024-01-31, Pre-release)
 

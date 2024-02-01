@@ -72,6 +72,12 @@ columns = [
 table_options = TableOptions(columns=columns)
 ```
 
+[Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) example:
+
+```python
+-8<-- "getting_started/shiny_express_filters.py"
+```
+
 ## Editor
 
 Set `editor` to `True` to make the cells of a column editable:

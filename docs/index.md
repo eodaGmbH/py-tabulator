@@ -10,7 +10,7 @@ pip install git+https://github.com/eodaGmbH/py-tabulator
 
 ## Basic usage
 
-Using [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/):
+[Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/) example:
 
 ```python
 -8<-- "getting_started/shiny_express_readme.py"
