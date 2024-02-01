@@ -12,9 +12,14 @@ ui.input_action_button("add_row", "Add row")
 ui.input_action_button("delete_selected_rows", "Delete selected rows")
 ui.input_action_button("undo", "Undo")
 ui.input_action_button("redo", "Redo")
-ui.input_action_button("trigger_get_data", "Get data")
+ui.input_action_button("trigger_get_data", "Submit data")
 
-ui.div("Click on row to print name.", style="padding: 10px;")
+ui.div(
+    ui.input_select("filter_sex", "Sex", choices=["male", "female"]),
+    style="padding: 10px;",
+)
+
+ui.div("Click on row(s) to print name.", style="padding: 10px;"),
 
 
 @render.code
@@ -79,6 +84,14 @@ def tabulator_data():
     print(input.tabulator_data()[0])
 
 
+@reactive.Effect
+@reactive.event(input.filter_sex, ignore_init=False)
+async def tabulator_data():
+    print(input.filter_sex())
+    async with TabulatorContext("tabulator") as table:
+        table.add_call("setFilter", "Sex", "=", input.filter_sex())
+
+
 @render_tabulator
 def tabulator():
     df = pd.read_csv(
@@ -96,5 +109,6 @@ def tabulator():
             selectable=True,
             history=True,
             # editor=True,
+            initialFilter=[{"field": "Sex", "type": "=", "value": "female"}],
         ),
     )

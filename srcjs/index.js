@@ -72,6 +72,12 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       Shiny.onInputChange(inputName, cell.getData());
     });
 
+    table.on("dataFiltered", function (filters, rows) {
+      // console.log("filters", filters);
+      const data = rows.map((row) => row.getData());
+      console.log(data);
+    });
+
     table.on("tableBuilt", function () {
       const downloadButton = document.getElementById("tabulator-download-csv");
       if (downloadButton) {
@@ -81,6 +87,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       }
     });
 
+    // This must be inside table.on("tableBuilt")
     const messageHandlerName = `tabulator-${el.id}`;
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {

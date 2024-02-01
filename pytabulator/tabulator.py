@@ -65,6 +65,7 @@ class TabulatorOptions(object):
     rowHeight: int = None
     resizableColumnFit: bool = False
     history: bool = False
+    initialFilter: list = None
     editor: bool = False
 
     # TODO: Rename to 'download_csv'

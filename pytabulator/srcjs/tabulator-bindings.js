@@ -60,6 +60,10 @@
         console.log(inputName, cell.getData());
         Shiny.onInputChange(inputName, cell.getData());
       });
+      table.on("dataFiltered", function(filters, rows) {
+        const data = rows.map((row) => row.getData());
+        console.log(data);
+      });
       table.on("tableBuilt", function() {
         const downloadButton = document.getElementById("tabulator-download-csv");
         if (downloadButton) {
