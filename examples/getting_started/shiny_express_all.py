@@ -1,10 +1,31 @@
+from random import randrange
+
 import pandas as pd
-from pytabulator.shiny_bindings import render_data_frame, render_tabulator
-from pytabulator.tabulator import Tabulator, TabulatorOptions
-from pytabulator.tabulator_context import TabulatorContext
+from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
 from shiny import reactive, render
 from shiny.express import input, ui
 
+# Fetch data
+#
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+)
+
+# Setup
+#
+table_options = TableOptions(
+    height=400,
+    pagination=True,
+    pagination_add_row="table",
+    layout="fitColumns",
+    index="PassengerId",
+    add_row_pos="top",
+    selectable=True,
+    history=True,
+)
+
+# Shiny Express App
+#
 ui.h1("Interactive Table", style="padding: 10px;")
 
 ui.input_action_button("trigger_download", "Download")
@@ -12,15 +33,34 @@ ui.input_action_button("add_row", "Add row")
 ui.input_action_button("delete_selected_rows", "Delete selected rows")
 ui.input_action_button("undo", "Undo")
 ui.input_action_button("redo", "Redo")
-ui.input_action_button("trigger_get_data", "Get data")
+ui.input_action_button("trigger_get_data", "Submit data")
 
-ui.div("Click on row to print name.", style="padding: 10px;")
+ui.div(
+    ui.input_text("name", "Click on 'Add row' to add the Person to the table."),
+    style="padding-top: 20px;",
+)
+ui.div("Click on rows to print name.", style="padding: 10px;"),
 
 
 @render.code
 async def txt():
-    print(input.tabulator_row())
-    return input.tabulator_row()["Name"]
+    print(input.tabulator_row_clicked())
+    return input.tabulator_row_clicked()["Name"]
+
+
+ui.div("Select multiple rows to print names of selected rows.", style="padding: 10px;"),
+
+
+@render.code
+def selected_rows():
+    data = input.tabulator_rows_selected()
+    output = [item["Name"] for item in data]
+    return "\n".join(output)
+
+
+@render_tabulator
+def tabulator():
+    return Tabulator(df, table_options)
 
 
 @reactive.Effect
@@ -28,14 +68,22 @@ async def txt():
 async def trigger_download():
     print("download triggered")
     async with TabulatorContext("tabulator") as table:
-        table.trigger_download("json")
+        table.trigger_download("csv")
 
 
 @reactive.Effect
 @reactive.event(input.add_row)
 async def add_row():
     async with TabulatorContext("tabulator") as table:
-        table.add_row({"Name": "Hans", "Sex": "male"})
+        table.add_row(
+            {
+                "Name": input.name() or "Hans",
+                "Age": randrange(55),
+                "Survived": randrange(2),
+                "PassengerId": randrange(10000, 20000, 1),
+                "SibSp": randrange(9),
+            }
+        )
 
 
 @reactive.Effect
@@ -70,24 +118,3 @@ async def trigger_get_data():
 @reactive.event(input.tabulator_data)
 def tabulator_data():
     print(input.tabulator_data()[0])
-
-
-@render_tabulator
-def tabulator():
-    df = pd.read_csv(
-        "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
-    )
-    return Tabulator(
-        df,
-        TabulatorOptions(
-            height="600px",
-            pagination=True,
-            paginationAddRow="table",
-            layout="fitColumns",
-            index="PassengerId",
-            addRowPos="top",
-            selectable=True,
-            history=True,
-            # editor=True,
-        ),
-    )
