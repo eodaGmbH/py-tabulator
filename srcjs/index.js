@@ -1,3 +1,5 @@
+import { run_calls } from "./widget";
+
 class TabulatorOutputBinding extends Shiny.OutputBinding {
   find(scope) {
     return scope.find(".shiny-tabulator-output");
@@ -76,6 +78,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       // console.log("filters", filters);
       const data = rows.map((row) => row.getData());
       console.log(data);
+      Shiny.onInputChange(`${el.id}_data_filtered`, data);
     });
 
     table.on("tableBuilt", function () {
@@ -92,6 +95,8 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     // console.log(messageHandlerName);
     Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
       console.log(payload);
+      run_calls(el, table, payload.calls);
+      /*
       payload.calls.forEach(([name, options]) => {
         if (name === "getData") {
           console.log("custom call");
@@ -112,6 +117,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         console.log(name, options);
         table[name](...options);
       });
+      */
     });
   }
 }
