@@ -6,6 +6,13 @@
 
 [Shiny for Python](https://shiny.posit.co/py/) bindings for [Tabulator JS](https://tabulator.info/)
 
+## Features
+
+- Support for Shiny core and Shiny Express
+- Filters
+- Editor with undo and redo
+- Reactivity
+
 ## Installation
 
 ```bash
