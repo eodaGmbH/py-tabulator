@@ -2,8 +2,18 @@ from pandas import DataFrame
 
 
 def create_columns(
-    df: DataFrame, default_filter: bool = False, default_editor: bool = False
+    df: DataFrame,
+    default_filter: bool = False,
+    default_editor: bool = False,
+    updates: dict = {},
 ) -> list:
+    """Create columns configuration from data frame
+
+    Args:
+        df (DataFrame): The data frame to create columns from.
+        default_filter (bool): Whether to add a default header filter to each column.
+        default_editor (bool): Whether to add a default editor to each column.
+    """
     # (hozAlign, headerFilter, editor)
     setup = [
         (
@@ -26,4 +36,12 @@ def create_columns(
         for i, column in enumerate(columns):
             column["editor"] = setup[i][2]
 
+    for key in updates:
+        for column in columns:
+            if column["field"] == key:
+                column.update(updates[key])
+
     return columns
+
+
+# {Age: {}}

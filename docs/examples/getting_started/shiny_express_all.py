@@ -15,7 +15,20 @@ df = pd.read_csv(
 # Setup
 #
 table_options = TableOptions(
-    columns=create_columns(df, default_filter=True, default_editor=True),
+    columns=create_columns(
+        df,
+        default_filter=True,
+        default_editor=True,
+        updates={
+            "Pclass": {
+                "formatter": "star",
+                "formatterParams": {"stars": 3},
+                "hozAlign": "center",
+            },
+            "Survived": {"formatter": "tickCross"},
+            "Fare": {"formatter": "progress", "hozAlign": "left"},
+        },
+    ),
     height=400,
     pagination=True,
     pagination_add_row="table",
