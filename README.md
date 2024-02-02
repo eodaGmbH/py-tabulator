@@ -9,8 +9,13 @@
 ## Features
 
 - Support for Shiny core and Shiny Express
+- Pagination
 - Filters
-- Editor with undo and redo
+- Editor with undo and redo (History interaction)
+- Grouping
+- Sorting
+- Column calculations
+- Downloads
 - Reactivity
 
 ## Installation
