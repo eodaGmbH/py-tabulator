@@ -14,7 +14,6 @@ from pandas import DataFrame
 from pytabulator import render_data_frame
 
 data = [["Peter", 10], ["Hans", 12]]
-
 df = DataFrame(data, columns=["Name", "Age"])
 
 @render_data_frame
@@ -29,6 +28,27 @@ columns = [
     {"title": "Name", "field": "Name", "horizAlign": "left"},
     {"title": "Age", "field": "Age", "horizAlign": "right"}
 ]
+```
+
+## Customize default configuration
+
+With `create_columns` you can customize the default configuration:
+
+```python
+from pandas import DataFrame
+from pytabulator import TableOptions
+from pytabulator.utils import create_columns
+
+data = [["Peter", 10, 102.5], ["Hans", 12, 200.9]]
+df = DataFrame(data, columns=["Name", "Age", "JustANumber"])
+
+table_options = TableOptions(
+    columns=create_columns(
+        df,
+        default_filter=True,
+        default_editor=True,
+        updates={"JustANumber": {"formatter": "progress", "horizAlign": "left"}})
+)
 ```
 
 ## Calculations

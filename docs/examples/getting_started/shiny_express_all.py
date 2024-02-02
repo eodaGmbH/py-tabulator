@@ -2,6 +2,7 @@ from random import randrange
 
 import pandas as pd
 from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
+from pytabulator.utils import create_columns
 from shiny import reactive, render
 from shiny.express import input, ui
 
@@ -9,12 +10,26 @@ from shiny.express import input, ui
 #
 df = pd.read_csv(
     "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
-)
+)[["PassengerId", "Name", "Pclass", "Sex", "Age", "Fare", "Survived"]]
 
 # Setup
 #
 table_options = TableOptions(
-    height=400,
+    columns=create_columns(
+        df,
+        default_filter=True,
+        default_editor=True,
+        updates={
+            "Pclass": {
+                "formatter": "star",
+                "formatterParams": {"stars": 3},
+                "hozAlign": "center",
+            },
+            "Survived": {"formatter": "tickCross"},
+            "Fare": {"formatter": "progress", "hozAlign": "left"},
+        },
+    ),
+    height=413,
     pagination=True,
     pagination_add_row="table",
     layout="fitColumns",
@@ -26,14 +41,13 @@ table_options = TableOptions(
 
 # Shiny Express App
 #
-ui.h1("Interactive Table", style="padding: 10px;")
-
-ui.input_action_button("trigger_download", "Download")
-ui.input_action_button("add_row", "Add row")
-ui.input_action_button("delete_selected_rows", "Delete selected rows")
-ui.input_action_button("undo", "Undo")
-ui.input_action_button("redo", "Redo")
-ui.input_action_button("trigger_get_data", "Submit data")
+with ui.div(style="padding-top: 0px;"):
+    ui.input_action_button("trigger_download", "Download")
+    ui.input_action_button("add_row", "Add row")
+    ui.input_action_button("delete_selected_rows", "Delete selected rows")
+    ui.input_action_button("undo", "Undo")
+    ui.input_action_button("redo", "Redo")
+    ui.input_action_button("trigger_get_data", "Submit data")
 
 ui.div(
     ui.input_text("name", "Click on 'Add row' to add the Person to the table."),

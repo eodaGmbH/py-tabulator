@@ -82,6 +82,10 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     });
 
     table.on("tableBuilt", function () {
+      if (payload.options.columnUpdates != null) {
+        console.log("column updates", payload.options.columnUpdates);
+      }
+      // TODO: DEPRECATED!?
       const downloadButton = document.getElementById("tabulator-download-csv");
       if (downloadButton) {
         downloadButton.addEventListener("click", () =>

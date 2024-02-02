@@ -17,11 +17,14 @@ nav:
       - Table: table.md
       - Columns and filters: columns.md
       - Events and triggers: events.md
+  - API Documentation: api.md
 
 repo_name: py-tabulator
 repo_url: https://github.com/eodaGmbH/py-tabulator
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -31,3 +34,17 @@ markdown_extensions:
   - pymdownx.snippets:
       check_paths: true
       base_path: [docs/examples, "."]
+
+plugins:
+  - search:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: table
+            show_root_heading: true
+            show_source: True
+
+watch:
+  - pytabulator
