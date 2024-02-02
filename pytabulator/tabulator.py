@@ -20,6 +20,7 @@ class TableOptions(BaseModel):
         group_by: Columns to group by. Defaults to `None`.
         height (int, optional): Height in px. Defaults to `300`.
         pagination (bool, optional): Whether to enable pagination. Defaults to `False`.
+        pagination_counter (str, optional): Whether to display counted rows in footer. Defaults to `rows`.
         pagination_add_row: Where to add rows when pagination is enabled. Defaults to `page`.
         selectable: Whether a row is selectable. An integer value sets the maximum number of rows, that can be selected.
             If set to `highlight`, rows do not change state when clicked. Defaults to `highlight`.
@@ -46,6 +47,7 @@ class TableOptions(BaseModel):
     group_by: Union[str, list] = Field(None, serialization_alias="groupBy")
     height: Union[int, str] = None
     pagination: bool = False
+    pagination_counter: str = Field("rows", serialization_alias="paginationCounter")
     pagination_add_row: Literal["page", "table"] = Field(
         "page", serialization_alias="paginationAddRow"
     )
@@ -61,6 +63,12 @@ class TableOptions(BaseModel):
     row_height: int = Field(None, serialization_alias="rowHeight")
     resizable_column_fit: bool = Field(False, serialization_alias="resizableColumnFit")
     history: bool = False
+
+    # New features to be added in the next release
+    """
+    responsiveLayout: str = "hide"
+    columnDefaults: dict = {"tooltip": True}
+    """
 
     @field_validator("height")
     def validate_height(cls, v):

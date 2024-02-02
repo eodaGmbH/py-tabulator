@@ -29,7 +29,7 @@ table_options = TableOptions(
             "Fare": {"formatter": "progress", "hozAlign": "left"},
         },
     ),
-    height=400,
+    height=413,
     pagination=True,
     pagination_add_row="table",
     layout="fitColumns",
@@ -41,15 +41,14 @@ table_options = TableOptions(
 
 # Shiny Express App
 #
-ui.div(
-    ui.input_action_button("trigger_download", "Download"),
-    ui.input_action_button("add_row", "Add row"),
-    ui.input_action_button("delete_selected_rows", "Delete selected rows"),
-    ui.input_action_button("undo", "Undo"),
-    ui.input_action_button("redo", "Redo"),
-    ui.input_action_button("trigger_get_data", "Submit data"),
-    style="padding-top: 0px;",
-)
+with ui.div(style="padding-top: 0px;"):
+    ui.input_action_button("trigger_download", "Download")
+    ui.input_action_button("add_row", "Add row")
+    ui.input_action_button("delete_selected_rows", "Delete selected rows")
+    ui.input_action_button("undo", "Undo")
+    ui.input_action_button("redo", "Redo")
+    ui.input_action_button("trigger_get_data", "Submit data")
+
 ui.div(
     ui.input_text("name", "Click on 'Add row' to add the Person to the table."),
     style="padding-top: 20px;",
