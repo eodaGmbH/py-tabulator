@@ -7,12 +7,13 @@ def create_columns(
     default_editor: bool = False,
     updates: dict = {},
 ) -> list:
-    """Create columns configuration from data frame
+    """Create columns configuration from a data frame
 
     Args:
         df (DataFrame): The data frame to create columns from.
         default_filter (bool): Whether to add a default header filter to each column.
         default_editor (bool): Whether to add a default editor to each column.
+        updates (dict): Dictionary of updates that overwrite the default settings or add additional settings the columns.
     """
     # (hozAlign, headerFilter, editor)
     setup = [

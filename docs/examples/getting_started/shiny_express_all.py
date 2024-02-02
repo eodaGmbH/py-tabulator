@@ -48,7 +48,7 @@ ui.div(
     ui.input_action_button("undo", "Undo"),
     ui.input_action_button("redo", "Redo"),
     ui.input_action_button("trigger_get_data", "Submit data"),
-    style="padding-top: 20px;",
+    style="padding-top: 0px;",
 )
 ui.div(
     ui.input_text("name", "Click on 'Add row' to add the Person to the table."),

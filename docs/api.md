@@ -6,13 +6,10 @@
 
 See also [detailed example](../example).
 
-::: pytabulator
-    options:
-        show_root_heading: true
-        members:
-            - output_tabulator
-            - render_tabulator
-            - render_data_frame
-            - TableOptions
-            - Tabulator
-            - TabulatorContext
+::: pytabulator.shiny_bindings
+    
+::: pytabulator.utils
+
+::: pytabulator.tabulator
+
+::: pytabulator.tabulator_context
