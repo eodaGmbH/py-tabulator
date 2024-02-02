@@ -1,6 +1,8 @@
 # Changelog for Tabulator for Python
 
-## pytabulator v0.2.0
+## pytabulator v0.2.0 (2024-04-02)
+
+Initial PyPI release
 
 * Add docs
 * Rename `TabulatorOptions` to `TableOptions`
