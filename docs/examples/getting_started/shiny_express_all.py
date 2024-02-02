@@ -10,7 +10,7 @@ from shiny.express import input, ui
 #
 df = pd.read_csv(
     "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
-)[["PassengerId", "Name", "Survived", "Sex", "Age", "Fare"]]
+)[["PassengerId", "Name", "Pclass", "Sex", "Age", "Fare", "Survived"]]
 
 # Setup
 #
