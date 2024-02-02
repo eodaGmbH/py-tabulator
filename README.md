@@ -8,7 +8,7 @@
 
 ## Features
 
-- Support for Shiny core and Shiny Express
+- Support for [Shiny core](https://shiny.posit.co/py/) and [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/)
 - Pagination
 - Filters
 - Editor with undo and redo (History interaction)
@@ -21,6 +21,10 @@
 ## Installation
 
 ```bash
+# Stable
+pip install pytabulator
+
+# Dev
 pip install git+https://github.com/eodaGmbH/py-tabulator
 ```
 
@@ -61,3 +65,23 @@ shiny run docs/examples/getting_started/shiny_express_all.py
 ```
 
 ![](docs/images/shiny-express-detailed-example.png)
+
+## Development
+
+### Python
+
+```bash
+poetry install
+
+peotry run pytest
+```
+
+### JavaScript
+
+```bash
+npm install
+
+npm run prettier
+
+npm run build
+```
