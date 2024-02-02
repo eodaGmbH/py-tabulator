@@ -23,6 +23,8 @@ repo_name: py-tabulator
 repo_url: https://github.com/eodaGmbH/py-tabulator
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

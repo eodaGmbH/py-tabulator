@@ -2,8 +2,6 @@
 
 [Shiny for Python](https://shiny.posit.co/py/) bindings for [Tabulator JS](https://tabulator.info/)
 
-![](docs/images/shiny-express-detailed-example.png)
-
 ## Installation
 
 ```bash
@@ -45,3 +43,5 @@ Run detailed example:
 ```bash
 shiny run docs/examples/getting_started/shiny_express_all.py
 ```
+
+![](docs/images/shiny-express-detailed-example.png)
