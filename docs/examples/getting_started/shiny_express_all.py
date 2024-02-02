@@ -53,7 +53,7 @@ ui.div(
     ui.input_text("name", "Click on 'Add row' to add the Person to the table."),
     style="padding-top: 20px;",
 )
-ui.div("Click on rows to print name.", style="padding: 10px;"),
+ui.div("Click on a row to print the name of the person.", style="padding: 10px;"),
 
 
 @render.code
@@ -62,7 +62,10 @@ async def txt():
     return input.tabulator_row_clicked()["Name"]
 
 
-ui.div("Select multiple rows to print names of selected rows.", style="padding: 10px;"),
+ui.div(
+    "Select multiple rows to print the names of the selected persons.",
+    style="padding: 10px;",
+),
 
 
 @render.code
