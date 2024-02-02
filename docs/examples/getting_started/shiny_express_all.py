@@ -2,6 +2,7 @@ from random import randrange
 
 import pandas as pd
 from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
+from pytabulator.utils import create_columns
 from shiny import reactive, render
 from shiny.express import input, ui
 
@@ -14,6 +15,7 @@ df = pd.read_csv(
 # Setup
 #
 table_options = TableOptions(
+    columns=create_columns(df, default_filter=True, default_editor=True),
     height=400,
     pagination=True,
     pagination_add_row="table",
@@ -26,15 +28,15 @@ table_options = TableOptions(
 
 # Shiny Express App
 #
-ui.h1("Interactive Table", style="padding: 10px;")
-
-ui.input_action_button("trigger_download", "Download")
-ui.input_action_button("add_row", "Add row")
-ui.input_action_button("delete_selected_rows", "Delete selected rows")
-ui.input_action_button("undo", "Undo")
-ui.input_action_button("redo", "Redo")
-ui.input_action_button("trigger_get_data", "Submit data")
-
+ui.div(
+    ui.input_action_button("trigger_download", "Download"),
+    ui.input_action_button("add_row", "Add row"),
+    ui.input_action_button("delete_selected_rows", "Delete selected rows"),
+    ui.input_action_button("undo", "Undo"),
+    ui.input_action_button("redo", "Redo"),
+    ui.input_action_button("trigger_get_data", "Submit data"),
+    style="padding-top: 20px;",
+)
 ui.div(
     ui.input_text("name", "Click on 'Add row' to add the Person to the table."),
     style="padding-top: 20px;",
