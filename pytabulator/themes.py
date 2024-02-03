@@ -11,3 +11,7 @@ def tabulator_midnight():
 
 def tabulator_modern():
     set_theme("tabulator_modern.min.css")
+
+
+def tabulator_site():
+    set_theme("tabulator_site.min.css")
