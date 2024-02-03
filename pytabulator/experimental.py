@@ -1,4 +1,3 @@
-import os
 from os.path import join
 from pathlib import Path
 
@@ -22,15 +21,3 @@ def simple_theme():
 
 def midnight_theme():
     return get_theme_css("midnight")
-
-
-def set_theme(stylesheet):
-    os.environ["PY_TABULATOR_STYLESHEET"] = stylesheet
-
-
-def tabulator_simple():
-    set_theme("tabulator_simple.min.css")
-
-
-def tabulator_midnight():
-    set_theme("tabulator_midnight.min.css")

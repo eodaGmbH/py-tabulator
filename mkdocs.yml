@@ -17,6 +17,8 @@ nav:
       - Table: table.md
       - Columns and filters: columns.md
       - Events and triggers: events.md
+  - Examples:
+      - Themes: examples/themes/index.md
   - API Documentation: api.md
 
 repo_name: py-tabulator

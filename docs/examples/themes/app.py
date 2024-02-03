@@ -5,6 +5,17 @@ from pytabulator.themes import tabulator_midnight, tabulator_simple
 from shiny import render
 from shiny.express import input, ui
 
+table_options = TableOptions(
+    height=600,
+    pagination=True,
+    layout="fitColumns",
+)
+
+# Set theme
+#
+# tabulator_simple()
+tabulator_midnight()
+
 ui.div("Click on row to print name.", style="padding: 10px;")
 
 
@@ -14,25 +25,9 @@ async def txt():
     return input.tabulator_row_clicked()["Name"]
 
 
-tabulator_simple()
-# tabulator_midnight()
-
-
 @render_tabulator
 def tabulator():
     df = pd.read_csv(
         "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
     )
-    return Tabulator(
-        df,
-        TableOptions(
-            height=600,
-            pagination=True,
-            layout="fitColumns",
-            columnDefaults={"tooltip": True},
-        ),
-    )
-
-
-# midnight_theme()
-# simple_theme()
+    return Tabulator(df, table_options)
