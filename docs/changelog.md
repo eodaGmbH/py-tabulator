@@ -1,6 +1,6 @@
 # Changelog for Tabulator for Python
 
-## pytabulator v0.2.1
+## pytabulator v0.2.1 (2024-04-03)
 
 * Set version of pandas requirement to `>=1.5.3`
 * Allow extra arguments in `TableOptions`
