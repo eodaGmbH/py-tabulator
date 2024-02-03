@@ -5,6 +5,10 @@ Tabulator for Python provides [Shiny for Python](https://shiny.posit.co/py/) bin
 ## Installation
 
 ```bash
+# Stable
+pip install pytabulator
+
+# Dev
 pip install git+https://github.com/eodaGmbH/py-tabulator
 ```
 
@@ -14,8 +18,4 @@ pip install git+https://github.com/eodaGmbH/py-tabulator
 
 ```python
 -8<-- "getting_started/shiny_express_readme.py"
-```
-
-```bash
-shiny run docs/examples/getting_started/shiny_express_all.py
 ```

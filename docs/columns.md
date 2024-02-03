@@ -51,6 +51,12 @@ table_options = TableOptions(
 )
 ```
 
+In the example above with `default_editor=True` all columns are set to editable and with `default_filter=True` a header filter is added to all columns.
+For numeric columns the editor and filter mode is set to `number`.
+
+The `updates` arguments allows you to overwrite any defaults set for a column. In this case the `formatter` of the numeric column `JustANumber` is set to `progress`
+and the alignment is changed from `right` to `left`.
+
 ## Calculations
 
 Calculations can be set with the `bottomCalc` parameter:
@@ -100,11 +106,11 @@ table_options = TableOptions(columns=columns)
 
 ## Editor
 
-Set `editor` to `True` to make the cells of a column editable:
+Set `editor` to `True`, `"input"` or `"number"` to make the cells of a column editable:
 
 ```python
 columns = [
     {"title": "Name", "field": "Name", "horizAlign": "left", "editor": True},
-    {"title": "Age", "field": "Age", "horizAlign": "right", "editor": True}
+    {"title": "Age", "field": "Age", "horizAlign": "right", "editor": "number"}
 ]
 ```

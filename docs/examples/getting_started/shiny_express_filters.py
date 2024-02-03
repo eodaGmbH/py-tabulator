@@ -26,8 +26,7 @@ columns = [
             "values": {
                 "1": "Survived",
                 "0": "Died",
-            },
-            "clearable": True,
+            }
         },
     },
 ]
