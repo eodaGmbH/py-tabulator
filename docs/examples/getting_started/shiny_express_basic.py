@@ -1,4 +1,5 @@
 import pandas as pd
+from pytabulator.experimental import midnight_theme, simple_theme
 from pytabulator.shiny_bindings import render_tabulator
 from pytabulator.tabulator import TableOptions, Tabulator
 from shiny import render
@@ -26,3 +27,7 @@ def tabulator():
             layout="fitColumns",
         ),
     )
+
+
+# midnight_theme()
+simple_theme()
