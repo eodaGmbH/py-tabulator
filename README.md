@@ -1,7 +1,7 @@
 # py-tabulator: Tabulator for Python
 
 [![Release](https://img.shields.io/github/v/release/eodaGmbH/py-tabulator)](https://img.shields.io/github/v/release/eodaGmbH/py-tabulator)
-![PyPI - Version](https://img.shields.io/pypi/v/pytabulator?logoColor=green)
+[![pypi](https://img.shields.io/pypi/v/pytabulator.svg)](https://pypi.python.org/pypi/pytabulator)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-tabulator/pytest.yml?branch=main)](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-tabulator/pytest.yml?branch=main)
 [![License](https://img.shields.io/github/license/eodaGmbH/py-tabulator)](https://img.shields.io/github/license/eodaGmbH/py-tabulator)
 
