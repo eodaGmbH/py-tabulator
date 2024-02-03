@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from dataclasses import asdict
 
 from htmltools import HTMLDependency, Tag
@@ -11,14 +12,16 @@ from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 from ._utils import df_to_dict
 from .tabulator import TableOptions, Tabulator, TabulatorOptions
 
-tabulator_dep = HTMLDependency(
-    "tabulator",
-    "5.5.4",
-    source={"package": "pytabulator", "subdir": "srcjs"},
-    script={"src": "tabulator.min.js", "type": "module"},
-    stylesheet={"href": "tabulator.min.css"},
-    all_files=False,
-)
+
+def tabulator_dep() -> HTMLDependency:
+    return HTMLDependency(
+        "tabulator",
+        "5.5.4",
+        source={"package": "pytabulator", "subdir": "srcjs"},
+        script={"src": "tabulator.min.js", "type": "module"},
+        stylesheet={"href": os.getenv("PY_TABULATOR_STYLESHEET", "tabulator.min.css")},
+        all_files=False,
+    )
 
 
 tabulator_bindings_dep = HTMLDependency(
@@ -37,7 +40,7 @@ def output_tabulator(id: str):
         id (str): An output id of a `Tabulator` table.
     """
     return ui.div(
-        tabulator_dep,
+        tabulator_dep(),
         tabulator_bindings_dep,
         id=resolve_id(id),
         class_="shiny-tabulator-output",

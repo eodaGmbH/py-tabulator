@@ -1,5 +1,10 @@
 import pandas as pd
-from pytabulator.experimental import midnight_theme, simple_theme
+from pytabulator.experimental import (
+    midnight_theme,
+    simple_theme,
+    tabulator_midnight,
+    tabulator_simple,
+)
 from pytabulator.shiny_bindings import render_tabulator
 from pytabulator.tabulator import TableOptions, Tabulator
 from shiny import render
@@ -12,6 +17,10 @@ ui.div("Click on row to print name.", style="padding: 10px;")
 async def txt():
     print(input.tabulator_row_clicked())
     return input.tabulator_row_clicked()["Name"]
+
+
+tabulator_simple()
+tabulator_midnight()
 
 
 @render_tabulator
@@ -31,4 +40,4 @@ def tabulator():
 
 
 # midnight_theme()
-simple_theme()
+# simple_theme()
