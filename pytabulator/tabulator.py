@@ -5,7 +5,7 @@ from typing import Literal, Union
 from warnings import warn
 
 from pandas import DataFrame
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from ._utils import df_to_dict
 
@@ -69,6 +69,12 @@ class TableOptions(BaseModel):
     responsiveLayout: str = "hide"
     columnDefaults: dict = {"tooltip": True}
     """
+
+    model_config = ConfigDict(
+        validate_assignment=True,
+        extra="allow",
+        # use_enum_values=True
+    )
 
     @field_validator("height")
     def validate_height(cls, v):

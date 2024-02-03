@@ -24,5 +24,6 @@ def tabulator():
             height=600,
             pagination=True,
             layout="fitColumns",
+            columnDefaults={"tooltip": True},
         ),
     )
