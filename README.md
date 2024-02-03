@@ -74,7 +74,7 @@ shiny run docs/examples/getting_started/shiny_express_all.py
 ```bash
 poetry install
 
-peotry run pytest
+poetry run pytest
 ```
 
 ### JavaScript
