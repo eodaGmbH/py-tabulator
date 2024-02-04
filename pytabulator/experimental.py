@@ -47,6 +47,7 @@ def midnight_theme():
 
 
 # <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+# https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.mini.min.js
 def use_xlsx() -> HTMLDependency:
     pass
 

@@ -13,7 +13,7 @@ async def txt():
     return input.tabulator_row_clicked()["Name"]
 
 
-theme.tabulator_materialize()
+theme.tabulator_site()
 
 
 @render_tabulator
