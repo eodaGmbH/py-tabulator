@@ -1,0 +1,16 @@
+add_row_pos: Literal["bottom", "top"] = Field("bottom", serialization_alias="addRowPos")
+columns: list = None
+frozen_rows: int = Field(None, serialization_alias="frozenRows")
+group_by: Union[str, list] = Field(None, serialization_alias="groupBy")
+header_visible: bool = Field(True, serialization_alias="headerVisible")
+height: Union[int, str] = None
+history: bool = False
+index: str = "id"
+layout: Literal["fitData", "fitDataFill", "fitDataStretch", "fitDataTable", "fitColumns"] = "fitColumns"
+movable_rows: bool = Field(False, serialization_alias="movableRows")
+pagination_add_row: Literal["page", "table"] = Field("page", serialization_alias="paginationAddRow")
+pagination: bool = False
+pagination_counter: str = Field("rows", serialization_alias="paginationCounter")
+resizable_column_fit: bool = Field(False, serialization_alias="resizableColumnFit")
+row_height: int = Field(None, serialization_alias="rowHeight")
+selectable: Union[str, bool, int] = "highlight"
