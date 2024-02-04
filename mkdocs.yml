@@ -20,6 +20,7 @@ nav:
       - Themes: concept/themes.md
   - Examples:
       - Themes: examples/themes/index.md
+      - Downloads: examples/exports/index.md
   - API Documentation: api.md
 
 repo_name: py-tabulator
