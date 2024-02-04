@@ -1,7 +1,6 @@
 import pandas as pd
+from pytabulator import TableOptions, Tabulator, theme
 from pytabulator.shiny_bindings import render_tabulator
-from pytabulator.tabulator import TableOptions, Tabulator
-from pytabulator.themes import tabulator_midnight, tabulator_simple
 from shiny import render
 from shiny.express import input, ui
 
@@ -14,8 +13,7 @@ async def txt():
     return input.tabulator_row_clicked()["Name"]
 
 
-tabulator_simple()
-# tabulator_midnight()
+theme.tabulator_simple()
 
 
 @render_tabulator
@@ -32,7 +30,3 @@ def tabulator():
             columnDefaults={"tooltip": True},
         ),
     )
-
-
-# midnight_theme()
-# simple_theme()

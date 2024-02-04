@@ -1,13 +1,6 @@
 import pandas as pd
+from pytabulator import TableOptions, Tabulator, theme
 from pytabulator.shiny_bindings import render_tabulator
-from pytabulator.tabulator import TableOptions, Tabulator
-from pytabulator.themes import (
-    set_theme,
-    tabulator_midnight,
-    tabulator_modern,
-    tabulator_simple,
-    tabulator_site,
-)
 from shiny import render
 from shiny.express import input, ui
 
@@ -19,10 +12,7 @@ table_options = TableOptions(
 
 # Set theme
 #
-tabulator_simple()
-tabulator_midnight()
-tabulator_modern()
-tabulator_site()
+theme.tabulator_midnight()
 
 ui.div("Click on row to print name.", style="padding: 10px;")
 
