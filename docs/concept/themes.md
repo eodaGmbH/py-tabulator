@@ -16,6 +16,9 @@ theme.tabulator_midnight()
 ::: pytabulator.theme
     options:
         show_source: false
+        show_root_heading: false
+        show_root_toc_entry: false
+        show_symbol_type_toc: true
         members:
             - tabulator_midnight
             - tabulator_modern
@@ -24,3 +27,17 @@ theme.tabulator_midnight()
 
 
 ## Framework themes
+
+::: pytabulator.theme
+    options:
+        show_source: false
+        show_root_heading: false
+        show_root_toc_entry: false
+        show_symbol_type_toc: true
+        members:
+            - tabulator_bootstrap3
+            - tabulator_bootstrap4
+            - tabulator_bootstrap5
+            - tabulator_semanticui
+            - tabulator_bulma
+            - tabulator_materialize

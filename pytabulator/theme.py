@@ -1,5 +1,7 @@
 from ._utils import set_theme
 
+# Standard Themes
+
 
 def tabulator_simple():
     """Simple
@@ -30,3 +32,54 @@ def tabulator_site():
 
     The theme used for tables on the docs website of Tabulator JS."""
     set_theme("tabulator_site.min.css")
+
+
+# Framework Themes
+
+
+def tabulator_bootstrap3():
+    """Bootstrap 3
+
+    A Bootstrap 3 compatible theme.
+    """
+    set_theme("tabulator_bootstrap3.min.css")
+
+
+def tabulator_bootstrap4():
+    """Bootstrap 4
+
+    A Bootstrap 4 compatible theme.
+    """
+    set_theme("tabulator_bootstrap4.min.css")
+
+
+def tabulator_bootstrap5():
+    """Bootstrap 5
+
+    A Bootstrap 5 compatible theme.
+    """
+    set_theme("tabulator_bootstrap5.min.css")
+
+
+def tabulator_semanticui():
+    """Semantic UI
+
+    A Semantic UI compatible theme.
+    """
+    set_theme("tabulator_semanticui.min.css")
+
+
+def tabulator_bulma():
+    """Bulma
+
+    A Bulma compatible theme.
+    """
+    set_theme("tabulator_bulma.min.css")
+
+
+def tabulator_materialize():
+    """Materialize
+
+    A Materialize compatible theme.
+    """
+    set_theme("tabulator_materialize.min.css")
