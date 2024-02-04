@@ -44,3 +44,14 @@ def simple_theme():
 
 def midnight_theme():
     return get_theme_css("midnight")
+
+
+# <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+def use_xlsx() -> HTMLDependency:
+    pass
+
+
+# <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+# <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+def use_jspdf() -> HTMLDependency:
+    pass
