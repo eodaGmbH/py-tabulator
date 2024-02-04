@@ -17,6 +17,7 @@
 - Sorting
 - Column calculations
 - Downloads
+- Themes
 - Reactivity
 
 ## Installation
