@@ -1,5 +1,5 @@
 from pandas import DataFrame
-from pytabulator import TableOptions, Tabulator, TabulatorOptions
+from pytabulator import TableOptions, Tabulator
 
 
 def test_table_options():

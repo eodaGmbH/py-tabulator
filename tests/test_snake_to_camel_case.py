@@ -21,5 +21,7 @@ class TableOptions(object):
 
 
 def test_snake_to_camel_case():
-    table_options = TableOptions(header_visible="yes")
+    table_options = TableOptions(header_visible=False)
     print(table_options.to_dict())
+
+    assert not table_options.to_dict()["headerVisible"]
