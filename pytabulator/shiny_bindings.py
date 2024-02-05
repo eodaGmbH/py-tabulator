@@ -8,9 +8,10 @@ from shiny import ui
 from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
+from . import TableOptions
 from ._table_options_dc import TableOptions as TableOptionDC
 from ._utils import df_to_dict
-from .tabulator import TableOptions, Tabulator, jsonifiable_table_options
+from .tabulator import Tabulator, jsonifiable_table_options
 
 # --
 # UI
