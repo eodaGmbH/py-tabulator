@@ -22,7 +22,7 @@ jobs:
       - name: Install Poetry and pytest
         run: pip install poetry pytest
       - name: Install package
-        run: poetry install
+        run: poetry install --extras all
       - name: Test package
         run: |
           poetry run pytest
