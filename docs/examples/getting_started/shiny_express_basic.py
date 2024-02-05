@@ -24,8 +24,10 @@ def tabulator():
     return Tabulator(
         df,
         TableOptions(
-            height=600,
+            # height=700,
+            # height=None,
             pagination=True,
+            pagination_counter="rows",
             layout="fitColumns",
             # columnDefaults={"tooltip": True},
         ),
