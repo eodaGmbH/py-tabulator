@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 from typing import Literal, Union
-from warnings import warn
 
 from pandas import DataFrame
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from ._table_options_dc import TableOptions as TableOptionsDC
 from ._utils import df_to_dict
 
 
@@ -87,6 +86,8 @@ class TableOptions(BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+# TODO: DEPRECATED
+"""
 @dataclass
 class TabulatorOptions(object):
     index: str = "id"
@@ -111,6 +112,17 @@ class TabulatorOptions(object):
 
     # TODO: Rename to 'download_csv'
     download: Literal["csv", "json"] = None
+"""
+
+
+# TODO: Move somewhere else!?
+def jsonifiable_table_options(
+    table_options: TableOptions | TableOptionsDC | dict,
+) -> dict:
+    if type(table_options) in (TableOptions, TableOptionsDC):
+        return table_options.to_dict()
+
+    return table_options
 
 
 class Tabulator(object):
@@ -124,23 +136,12 @@ class Tabulator(object):
     def __init__(
         self,
         df: DataFrame,
-        table_options: TableOptions | dict | TabulatorOptions = None,
+        table_options: TableOptions | dict = None,
     ) -> None:
         self.df = df
-        if isinstance(table_options, TableOptions):
-            table_options = table_options.model_dump(by_alias=True)
-        # Legacy
-        elif isinstance(table_options, TabulatorOptions):
-            warn(
-                "'TabulatorOptions' is deprecated and will be removed in one of the next releases. Use 'TableOptions' instead.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            table_options = asdict(table_options)
-
         self.table_options = table_options
 
     def to_dict(self) -> dict:
         data = df_to_dict(self.df)
-        data["options"] = self.table_options
+        data["options"] = jsonifiable_table_options(self.table_options)
         return data

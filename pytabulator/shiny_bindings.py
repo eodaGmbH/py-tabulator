@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from dataclasses import asdict
 
 from htmltools import HTMLDependency, Tag
 from pandas import DataFrame
@@ -10,7 +9,7 @@ from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
 from ._utils import df_to_dict
-from .tabulator import TableOptions, Tabulator, TabulatorOptions
+from .tabulator import TableOptions, Tabulator, jsonifiable_table_options
 
 
 def tabulator_dep() -> HTMLDependency:
@@ -60,6 +59,7 @@ class render_tabulator(Renderer[Tabulator]):
 
 
 # DEPRECATED
+"""
 class render_data_frame_(Renderer[DataFrame]):
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
@@ -70,6 +70,7 @@ class render_data_frame_(Renderer[DataFrame]):
         data = df_to_dict(df)
         data["options"] = {}
         return data
+"""
 
 
 class render_data_frame(Renderer[DataFrame]):
@@ -88,7 +89,7 @@ class render_data_frame(Renderer[DataFrame]):
         self,
         _fn: ValueFn[DataFrame] = None,
         *,
-        table_options: TableOptions | TabulatorOptions = TableOptions(),
+        table_options: TableOptions | dict = TableOptions(),
     ) -> None:
         super().__init__(_fn)
         self.table_options = table_options
@@ -98,9 +99,5 @@ class render_data_frame(Renderer[DataFrame]):
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         data = df_to_dict(df)
-        data["options"] = (
-            asdict(self.table_options)
-            if isinstance(self.table_options, TabulatorOptions)
-            else self.table_options.model_dump(by_alias=True)
-        )
+        data["options"] = jsonifiable_table_options(self.table_options)
         return data
