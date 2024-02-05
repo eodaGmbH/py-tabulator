@@ -1,13 +1,10 @@
 [tool.poetry]
 name = "pytabulator"
-version = "0.2.2"
+version = "0.2.3"
 description = "Shiny bindings for Tabulator JS"
 authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]
 readme = "README.md"
 license = "MIT"
-# include = [
-#     { path = "srcjs", format = ["sdist", "wheel"] }
-# ]
 exclude = ["pytabulator/srcjs/get-themes.sh"]
 
 [tool.poetry.dependencies]
