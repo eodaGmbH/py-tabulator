@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from pandas import DataFrame
 
-from ._table_options_dc import TableOptions as TableOptionsDC
-from ._table_options_pydantic import TableOptions
+from ._types import TableOptions
 from ._utils import df_to_dict
 
 # TODO: DEPRECATED
@@ -37,9 +36,9 @@ class TabulatorOptions(object):
 
 # TODO: Move somewhere else!?
 def jsonifiable_table_options(
-    table_options: TableOptions | TableOptionsDC | dict,
+    table_options: TableOptions | dict,
 ) -> dict:
-    if type(table_options) in (TableOptions, TableOptionsDC):
+    if isinstance(table_options, TableOptions):
         return table_options.to_dict()
 
     return table_options
@@ -56,7 +55,7 @@ class Tabulator(object):
     def __init__(
         self,
         df: DataFrame,
-        table_options: TableOptions | dict = None,
+        table_options: TableOptions | dict = {},
     ) -> None:
         self.df = df
         self.table_options = table_options

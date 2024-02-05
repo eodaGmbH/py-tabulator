@@ -1,6 +1,9 @@
 import pytest
-from pytabulator import TableOptions
-from pytabulator._table_options_dc import TableOptions as TableOptionsDC
+
+# from pytabulator import TableOptions
+from pytabulator._table_options_dc import TableOptionsDC
+from pytabulator._table_options_dc import TableOptionsDC as TableOptionsDC
+from pytabulator._table_options_pydantic import TableOptionsPydantic as TableOptions
 
 
 @pytest.fixture

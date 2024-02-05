@@ -3,11 +3,12 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Literal, Union
 
+from ._types import TableOptions
 from ._utils import snake_to_camel_case
 
 
 @dataclass
-class TableOptions(object):
+class TableOptionsDC(TableOptions):
     add_row_pos: Literal["bottom", "top"] = "bottom"
     columns: list = None
     frozen_rows: int = None

@@ -4,8 +4,10 @@ from typing import Literal, Union
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from ._types import TableOptions
 
-class TableOptions(BaseModel):
+
+class TableOptionsPydantic(TableOptions, BaseModel):
     """Table options
 
     Attributes:
@@ -31,7 +33,7 @@ class TableOptions(BaseModel):
         See [Tabulator Setup Options](https://tabulator.info/docs/5.5/options) for details.
 
     Examples:
-        >>> from pytabulator import TableOptions
+        >>> from pytabulator import TableOptionsPydantic
 
         >>> table_options = TableOptions(height=500, pagination=True)
     """

@@ -8,10 +8,12 @@ from shiny import ui
 from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
-from . import TableOptions
-from ._table_options_dc import TableOptions as TableOptionDC
+from ._types import TableOptions
 from ._utils import df_to_dict
 from .tabulator import Tabulator, jsonifiable_table_options
+
+# from . import TableOptions
+
 
 # --
 # UI
@@ -83,7 +85,7 @@ class render_data_frame(Renderer[DataFrame]):
         self,
         _fn: ValueFn[DataFrame] = None,
         *,
-        table_options: TableOptions | TableOptionDC | dict = TableOptions(),
+        table_options: TableOptions | dict = {},
     ) -> None:
         super().__init__(_fn)
         self.table_options = table_options

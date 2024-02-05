@@ -1,9 +1,11 @@
 import pytest
 from pandas import DataFrame
 from pydantic import BaseModel
-from pytabulator import TableOptions as TableOptionsPydantic
 from pytabulator import Tabulator
-from pytabulator._table_options_dc import TableOptions as TableOptionsDC
+from pytabulator._table_options_dc import TableOptionsDC as TableOptionsDC
+
+# from pytabulator import TableOptions as TableOptionsPydantic
+from pytabulator._table_options_pydantic import TableOptionsPydantic
 
 
 @pytest.fixture
@@ -37,5 +39,6 @@ def test_table_pydantic(df: DataFrame) -> None:
     print(table_dict)
 
     assert isinstance(table.table_options, BaseModel)
+    print("pydantic", type(table.table_options))
     assert list(table_dict.keys()) == ["schema", "data", "options"]
     assert isinstance(table_dict["options"], dict)
