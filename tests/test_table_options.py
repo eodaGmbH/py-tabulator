@@ -1,38 +1,31 @@
 import pytest
 from pytabulator import TableOptions
+from pytabulator._table_options_dc import TableOptions as TableOptionsDC
 
 
 @pytest.fixture
-def table_options():
-    return {"columns": []}
+def some_table_options():
+    return {
+        "history": True,
+        "pagination_counter": "rows",
+        "index": "PassengerId",
+        "pagination_add_row": "table",
+    }
 
 
-expected_table_options = [
-    ("index", "id"),
-    ("headerVisible", True),
-    ("movableRows", False),
-    ("pagination", False),
-    ("paginationCounter", "rows"),
-    ("paginationAddRow", "page"),
-    ("selectable", "highlight"),
-    ("layout", "fitColumns"),
-    ("addRowPos", "bottom"),
-    ("resizableColumnFit", False),
-    ("history", True),
-]
-
-
-def test_table_options():
+def test_table_options(some_table_options):
     # Prepare
-    table_options = TableOptions(
-        history=True, pagination_counter="rows", header_visible=True
-    )
+    table_options_pydantic = TableOptions(**some_table_options)
+    print("pydantic", table_options_pydantic)
+
+    table_options_dc = TableOptionsDC(**some_table_options)
+    print("dc", table_options_dc)
 
     # Act
-    table_options_dict = table_options.to_dict()
-    print(table_options_dict.items())
+    table_options_pydantic_dict = table_options_pydantic.to_dict()
+    table_options_dc_dict = table_options_dc.to_dict()
 
     # Assert
-    sorted_list = list(table_options_dict.items()).sort(key=lambda item: item[0])
-    print(sorted_list)
-    assert sorted_list == expected_table_options.sort(key=lambda item: item[0])
+    assert list(table_options_pydantic_dict.items()).sort(
+        key=lambda item: item[0]
+    ) == list(table_options_dc_dict.items()).sort(key=lambda item: item[0])
