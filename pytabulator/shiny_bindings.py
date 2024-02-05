@@ -8,8 +8,13 @@ from shiny import ui
 from shiny.module import resolve_id
 from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
+from ._table_options_dc import TableOptions as TableOptionDC
 from ._utils import df_to_dict
 from .tabulator import TableOptions, Tabulator, jsonifiable_table_options
+
+# --
+# UI
+# --
 
 
 def tabulator_dep() -> HTMLDependency:
@@ -46,6 +51,11 @@ def output_tabulator(id: str):
     )
 
 
+# ------
+# Render
+# ------
+
+
 class render_tabulator(Renderer[Tabulator]):
     """A decorator for a function that returns a `Tabulator` table"""
 
@@ -58,29 +68,12 @@ class render_tabulator(Renderer[Tabulator]):
         return value.to_dict()
 
 
-# DEPRECATED
-"""
-class render_data_frame_(Renderer[DataFrame]):
-    def auto_output_ui(self) -> Tag:
-        return output_tabulator(self.output_id)
-
-    async def transform(self, df: DataFrame) -> Jsonifiable:
-        # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
-        # TODO: convert with js
-        data = df_to_dict(df)
-        data["options"] = {}
-        return data
-"""
-
-
 class render_data_frame(Renderer[DataFrame]):
     """A decorator for a function that returns a `DataFrame`
 
     Args:
         table_options (TableOptions): Table options.
     """
-
-    editor: bool
 
     def auto_output_ui(self) -> Tag:
         return output_tabulator(self.output_id)
@@ -89,7 +82,7 @@ class render_data_frame(Renderer[DataFrame]):
         self,
         _fn: ValueFn[DataFrame] = None,
         *,
-        table_options: TableOptions | dict = TableOptions(),
+        table_options: TableOptions | TableOptionDC | dict = TableOptions(),
     ) -> None:
         super().__init__(_fn)
         self.table_options = table_options
