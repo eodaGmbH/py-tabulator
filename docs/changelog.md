@@ -1,18 +1,23 @@
 # Changelog for Tabulator for Python
 
-## pytabulator v0.2.2
+## pytabulator v0.2.3
+
+* Make Pydantic optional
+
+
+## pytabulator v0.2.2 (2024-02-04)
 
 * Add themes
 * Add optional support for xlsx exports via sheetjs
 
 
-## pytabulator v0.2.1 (2024-04-03)
+## pytabulator v0.2.1 (2024-02-03)
 
 * Set version of pandas requirement to `>=1.5.3`
 * Allow extra arguments in `TableOptions`
 
 
-## pytabulator v0.2.0 (2024-04-02)
+## pytabulator v0.2.0 (2024-02-02)
 
 Initial PyPI release
 
