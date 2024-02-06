@@ -1,0 +1,2 @@
+class TableOptions(object):
+    pass

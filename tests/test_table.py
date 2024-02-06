@@ -1,30 +1,44 @@
+import pytest
 from pandas import DataFrame
-from pytabulator import TableOptions, Tabulator, TabulatorOptions
+from pydantic import BaseModel
+from pytabulator import Tabulator
+from pytabulator._table_options_dc import TableOptionsDC as TableOptionsDC
+
+# from pytabulator import TableOptions as TableOptionsPydantic
+from pytabulator._table_options_pydantic import TableOptionsPydantic
 
 
-def test_table_options():
-    # Prepare
-    group_by = ["Sex", "Age"]
-
-    # Act
-    table_options = TableOptions(group_by=group_by)
-    table_options_dict = table_options.to_dict()
-    print(table_options_dict)
-
-    # Assert
-    assert table_options_dict["groupBy"] == ["Sex", "Age"]
-
-
-def test_table():
-    # Prepare
+@pytest.fixture
+def df() -> DataFrame:
     data = [["Hans", "22"], ["Peter", [23]]]
-    df = DataFrame(data, columns=["Name", "Age"])
+    return DataFrame(data, columns=["Name", "Age"])
+
+
+def test_table_dc(df: DataFrame) -> None:
+    # Prepare
+    table_options = TableOptionsDC(selectable=3)
 
     # Act
-    table = Tabulator(df, table_options=TableOptions(selectable=3))
+    table = Tabulator(df, table_options=table_options)
     table_dict = table.to_dict()
     print(table_dict)
 
     # Assert
     assert list(table_dict.keys()) == ["schema", "data", "options"]
-    # assert not table_dict["options"]
+    assert isinstance(table_dict["options"], dict)
+    assert hasattr(table.table_options, "__dataclass_fields__")
+
+
+def test_table_pydantic(df: DataFrame) -> None:
+    # Prepare
+    table_options = TableOptionsPydantic(selectable=3)
+
+    # Act
+    table = Tabulator(df, table_options=table_options)
+    table_dict = table.to_dict()
+    print(table_dict)
+
+    assert isinstance(table.table_options, BaseModel)
+    print("pydantic", type(table.table_options))
+    assert list(table_dict.keys()) == ["schema", "data", "options"]
+    assert isinstance(table_dict["options"], dict)

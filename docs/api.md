@@ -13,3 +13,5 @@ See also [detailed example](../example).
 ::: pytabulator.tabulator
 
 ::: pytabulator.tabulator_context
+
+::: pytabulator.TableOptions
