@@ -7,11 +7,11 @@ try:
 
     from ._table_options_pydantic import TableOptionsPydantic as TableOptions
 
-    print("pydantic")
+    # print("pydantic")
 except PackageNotFoundError:
     from ._table_options_dc import TableOptionsDC as TableOptions
 
-    print("dataclass")
+    # print("dataclass")
 
 # from ._table_options_pydantic import TableOptionsPydantic as TableOptions
 from .shiny_bindings import output_tabulator, render_data_frame, render_tabulator
