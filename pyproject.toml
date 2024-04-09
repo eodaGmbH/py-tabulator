@@ -9,7 +9,7 @@ exclude = ["pytabulator/srcjs/get-themes.sh"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
-shiny = "^0.7.0"
+shiny = ">=0.7.0"
 pandas = "*"
 pydantic = {version = "^2.6.1", optional = true}
 
