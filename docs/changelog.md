@@ -1,6 +1,11 @@
 # Changelog for Tabulator for Python
 
-## pytabulator v0.2.3
+## pytabulator v0.2.4 (2024-04-09)
+
+* Shiny >= 0.7.0
+
+
+## pytabulator v0.2.3 (2024-02-06)
 
 * Make Pydantic optional
 
