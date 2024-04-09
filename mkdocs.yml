@@ -19,6 +19,7 @@ nav:
       - Events and triggers: events.md
       - Themes: concept/themes.md
   - Examples:
+      - Showcase: example.md
       - Themes: examples/themes/index.md
       - Downloads: examples/exports/index.md
   - API Documentation: api.md

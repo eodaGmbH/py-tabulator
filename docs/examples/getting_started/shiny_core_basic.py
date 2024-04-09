@@ -1,6 +1,5 @@
 import pandas as pd
-from pytabulator.shiny_bindings import output_tabulator, render_tabulator
-from pytabulator.tabulator import Tabulator
+from pytabulator import TableOptions, Tabulator, output_tabulator, render_tabulator
 from shiny import App, render, ui
 
 app_ui = ui.page_fluid(
@@ -15,7 +14,7 @@ def server(input, output, session):
         df = pd.read_csv(
             "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
         )
-        return Tabulator(df, table_options={"height": 311})
+        return Tabulator(df, table_options=TableOptions(height=311))
 
     @render.code
     async def txt():
