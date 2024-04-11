@@ -21,6 +21,7 @@ nav:
   - Examples:
       - Showcase: example.md
       - Themes: examples/themes/index.md
+      - Edit data: examples/edit_data/index.md
       - Downloads: examples/exports/index.md
   - API Documentation: api.md
 
