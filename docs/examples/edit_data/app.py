@@ -7,7 +7,7 @@ from pytabulator import (
     render_tabulator,
 )
 from pytabulator.utils import create_columns
-from shiny import App, reactive, render, ui
+from shiny import App, reactive, ui
 
 df = pd.DataFrame({"id": [1, 2, 3], "name": ["Hans", "Peter", "Hanna"]})
 table_options = TableOptions(columns=create_columns(df, default_editor=True))
