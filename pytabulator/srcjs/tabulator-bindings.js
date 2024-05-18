@@ -24,6 +24,9 @@
     constructor(container, data, options) {
       options.data = data;
       this._container = container;
+      console.log("columns", options.columns);
+      if (options.columns == null)
+        options.autoColumns = true;
       this._table = new Tabulator(this._container, options);
     }
     getTable() {
@@ -57,20 +60,14 @@
         Shiny.onInputChange(inputName, cell.getData());
       });
       table.on("dataFiltered", function(filters, rows) {
+        const inputName = `${el.id}_data_filtered`;
         const data = rows.map((row) => row.getData());
-        console.log(data);
-        Shiny.onInputChange(`${el.id}_data_filtered`, data);
+        console.log(inputName, data);
+        Shiny.onInputChange(inputName, data);
       });
       table.on("tableBuilt", function() {
         if (payload.options.columnUpdates != null) {
           console.log("column updates", payload.options.columnUpdates);
-        }
-        const downloadButton = document.getElementById("tabulator-download-csv");
-        if (downloadButton) {
-          downloadButton.addEventListener(
-            "click",
-            () => table.download("csv", "data.csv")
-          );
         }
       });
       const messageHandlerName = `tabulator-${el.id}`;

@@ -26,6 +26,8 @@ class TabulatorWidget {
     options.data = data;
     this._container = container;
     // console.log(this._container);
+    console.log("columns", options.columns);
+    if (options.columns == null) options.autoColumns = true;
     this._table = new Tabulator(this._container, options);
   }
 
