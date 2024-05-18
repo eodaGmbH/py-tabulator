@@ -1,3 +1,5 @@
+import addEventListeners from "./events";
+
 function run_calls(el, table, calls) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
@@ -29,6 +31,7 @@ class TabulatorWidget {
     console.log("columns", options.columns);
     if (options.columns == null) options.autoColumns = true;
     this._table = new Tabulator(this._container, options);
+    addEventListeners(this._table, this._container);
   }
 
   getTable() {

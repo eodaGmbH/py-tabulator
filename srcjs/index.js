@@ -10,6 +10,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
     const widget = new TabulatorWidget(el, payload.data, payload.options);
     const table = widget.getTable();
 
+    /*
     table.on("rowClick", function (e, row) {
       const inputName = `${el.id}_row_clicked`;
       console.log(inputName, row.getData());
@@ -35,7 +36,7 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       console.log(inputName, data);
       Shiny.onInputChange(inputName, data);
     });
-
+    */
     table.on("tableBuilt", function () {
       if (payload.options.columnUpdates != null) {
         console.log("column updates", payload.options.columnUpdates);
