@@ -21,4 +21,17 @@ function run_calls(el, table, calls) {
   });
 }
 
-export { run_calls };
+class TabulatorWidget {
+  constructor(container, data, options) {
+    options.data = data;
+    this._container = container;
+    // console.log(this._container);
+    this._table = new Tabulator(this._container, options);
+  }
+
+  getTable() {
+    return this._table;
+  }
+}
+
+export { run_calls, TabulatorWidget };

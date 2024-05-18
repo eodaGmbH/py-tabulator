@@ -1,4 +1,4 @@
-import { run_calls } from "./widget";
+import { run_calls, TabulatorWidget } from "./widget";
 
 class TabulatorOutputBinding extends Shiny.OutputBinding {
   find(scope) {
@@ -7,12 +7,17 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
 
   renderValue(el, payload) {
     console.log("payload", payload);
+    const widget = new TabulatorWidget(el, payload.data, payload.options);
+    const table = widget.getTable();
     // el.style.background = "lightgreen";
+    /*
     const editable =
       payload.options !== undefined ? payload.options.editor : false;
+    */
 
     // const editable = false;
     // const options = payload.options | {};
+    /*
     let columnsDef = payload.schema.fields.map((item) => {
       return {
         title: item.name,
@@ -21,7 +26,10 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         editor: editable,
       };
     });
+    */
 
+
+    /*
     if (payload.options.movableRows === true) {
       columnsDef = [
         {
@@ -34,14 +42,16 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
         },
       ].concat(columnsDef);
     }
+    */
+    //if (payload.options.columns == null) payload.options.columns = columnsDef;
 
-    if (payload.options.columns == null) payload.options.columns = columnsDef;
-
+    /*
     if (payload.options.download) {
       payload.options.footerElement =
         "<button id='tabulator-download-csv' class='tabulator-page'>Download csv</button>";
     }
-
+    */
+    /*
     const table = new Tabulator(
       el,
       Object.assign(
@@ -55,6 +65,8 @@ class TabulatorOutputBinding extends Shiny.OutputBinding {
       ),
     );
 
+
+     */
     table.on("rowClick", function (e, row) {
       const inputName = `${el.id}_row_clicked`;
       console.log(inputName, row.getData());
