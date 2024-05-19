@@ -27,7 +27,7 @@ class TableOptionsDC(TableOptions):
         pagination_counter: Whether to display counted rows in footer. Defaults to `"rows"`.
         resizable_column_fit: Maintain total column width when resizing a column. Defaults to `False`.
         row_height: Fixed height for rows. Defaults to `None`.
-        selectable: Whether a row is selectable. An integer value sets the maximum number of rows, that can be selected.
+        selectable_rows: Whether a row is selectable. An integer value sets the maximum number of rows, that can be selected.
             If set to `"highlight"`, rows do not change their state when they are clicked. Defaults to `"highlight"`.
     """
 
@@ -48,7 +48,7 @@ class TableOptionsDC(TableOptions):
     pagination_counter: str = "rows"
     resizable_column_fit: bool = False
     row_height: int = None
-    selectable: Union[str, bool, int] = "highlight"
+    selectable_rows: Union[str, bool, int] = "highlight"
 
     def to_dict(self):
         return asdict(
