@@ -27,11 +27,22 @@ class TabulatorWidget {
   constructor(container, data, options) {
     options.data = data;
     this._container = container;
-    // console.log(this._container);
     console.log("columns", options.columns);
     if (options.columns == null) options.autoColumns = true;
     this._table = new Tabulator(this._container, options);
-    addEventListeners(this._table, this._container);
+    if (typeof Shiny === "object") {
+      addEventListeners(this._table, this._container);
+      this._addShinyMessageHandler();
+    }
+  }
+
+  _addShinyMessageHandler() {
+    // This must be inside table.on("tableBuilt")
+    const messageHandlerName = `tabulator-${this._container.id}`;
+    Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+      console.log(payload);
+      run_calls(this._container, this._table, payload.calls);
+    });
   }
 
   getTable() {

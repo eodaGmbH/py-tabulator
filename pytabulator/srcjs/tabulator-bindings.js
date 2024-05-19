@@ -54,7 +54,17 @@
       if (options.columns == null)
         options.autoColumns = true;
       this._table = new Tabulator(this._container, options);
-      addEventListeners(this._table, this._container);
+      if (typeof Shiny === "object") {
+        addEventListeners(this._table, this._container);
+        this._addShinyMessageHandler();
+      }
+    }
+    _addShinyMessageHandler() {
+      const messageHandlerName = `tabulator-${this._container.id}`;
+      Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+        console.log(payload);
+        run_calls(this._container, this._table, payload.calls);
+      });
     }
     getTable() {
       return this._table;
@@ -74,11 +84,6 @@
         if (payload.options.columnUpdates != null) {
           console.log("column updates", payload.options.columnUpdates);
         }
-      });
-      const messageHandlerName = `tabulator-${el.id}`;
-      Shiny.addCustomMessageHandler(messageHandlerName, (payload2) => {
-        console.log(payload2);
-        run_calls(el, table, payload2.calls);
       });
     }
   };
