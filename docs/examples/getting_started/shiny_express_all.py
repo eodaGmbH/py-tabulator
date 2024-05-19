@@ -77,7 +77,9 @@ def selected_rows():
 
 @render_tabulator
 def tabulator():
-    return Tabulator(df, table_options)  # .options(selectableRows=True)
+    return Tabulator(df, table_options).options(
+        editTriggerEvent="dblclick"
+    )  # .options(selectableRows=True)
 
 
 @reactive.Effect
