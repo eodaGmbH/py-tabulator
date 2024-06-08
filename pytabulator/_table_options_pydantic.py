@@ -19,7 +19,7 @@ class TableOptionsPydantic(TableOptions, BaseModel):
         pagination (bool, optional): Whether to enable pagination. Defaults to `False`.
         pagination_counter (str, optional): Whether to display counted rows in footer. Defaults to `rows`.
         pagination_add_row: Where to add rows when pagination is enabled. Defaults to `page`.
-        selectable: Whether a row is selectable. An integer value sets the maximum number of rows, that can be selected.
+        selectable_rows: Whether a row is selectable. An integer value sets the maximum number of rows, that can be selected.
             If set to `highlight`, rows do not change state when clicked. Defaults to `highlight`.
         columns (list, optional): Columns configuration. Defaults to `None`,
             which means that the default configuration is used.
@@ -48,7 +48,9 @@ class TableOptionsPydantic(TableOptions, BaseModel):
     pagination_add_row: Literal["page", "table"] = Field(
         "page", serialization_alias="paginationAddRow"
     )
-    selectable: Union[str, bool, int] = "highlight"
+    selectable_rows: Union[str, bool, int] = Field(
+        "highlight", serialization_alias="selectableRows"
+    )
     columns: list = None
     layout: Literal[
         "fitData", "fitDataFill", "fitDataStretch", "fitDataTable", "fitColumns"

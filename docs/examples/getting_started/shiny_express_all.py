@@ -35,7 +35,7 @@ table_options = TableOptions(
     layout="fitColumns",
     index="PassengerId",
     add_row_pos="top",
-    selectable=True,
+    selectable_rows=True,
     history=True,
 )
 
@@ -77,7 +77,9 @@ def selected_rows():
 
 @render_tabulator
 def tabulator():
-    return Tabulator(df, table_options)
+    return Tabulator(df, table_options).options(
+        editTriggerEvent="dblclick"
+    )  # .options(selectableRows=True)
 
 
 @reactive.Effect

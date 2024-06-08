@@ -1,1 +1,94 @@
-(()=>{function g(r,o,t){t.forEach(([l,a])=>{if(l==="getData"){console.log("custom call"),Shiny.onInputChange(`${r.id}_data`,o.getData());return}if(l==="deleteSelectedRows"){console.log("custom call"),o.getSelectedRows().forEach(c=>{console.log(c.getIndex()),o.deleteRow(c.getIndex())});return}console.log(l,a),o[l](...a)})}var d=class extends Shiny.OutputBinding{find(o){return o.find(".shiny-tabulator-output")}renderValue(o,t){console.log("payload",t);let l=t.options!==void 0?t.options.editor:!1,a=t.schema.fields.map(n=>({title:n.name,field:n.name,hozAlign:["integer","number"].includes(n.type)?"right":"left",editor:l}));t.options.movableRows===!0&&(a=[{rowHandle:!0,formatter:"handle",headerSort:!1,frozen:!0,width:30,minWidth:30}].concat(a)),t.options.columns==null&&(t.options.columns=a),t.options.download&&(t.options.footerElement="<button id='tabulator-download-csv' class='tabulator-page'>Download csv</button>");let e=new Tabulator(o,Object.assign({data:t.data,layout:"fitColumns"},t.options));e.on("rowClick",function(n,s){let i=`${o.id}_row_clicked`;console.log(i,s.getData()),Shiny.onInputChange(i,s.getData())}),e.on("rowClick",(n,s)=>{let i=`${o.id}_rows_selected`,u=e.getSelectedRows().map(f=>f.getData());console.log(i,u),Shiny.onInputChange(i,u)}),e.on("cellEdited",function(n){let s=`${o.id}_row_edited`;console.log(s,n.getData()),Shiny.onInputChange(s,n.getData())}),e.on("dataFiltered",function(n,s){let i=s.map(u=>u.getData());console.log(i),Shiny.onInputChange(`${o.id}_data_filtered`,i)}),e.on("tableBuilt",function(){t.options.columnUpdates!=null&&console.log("column updates",t.options.columnUpdates);let n=document.getElementById("tabulator-download-csv");n&&n.addEventListener("click",()=>e.download("csv","data.csv"))});let c=`tabulator-${o.id}`;Shiny.addCustomMessageHandler(c,n=>{console.log(n),g(o,e,n.calls)})}};Shiny.outputBindings.register(new d,"shiny-tabulator-output");})();
+(() => {
+  // srcjs/events.js
+  function addEventListeners(table, el) {
+    table.on("rowClick", function(e, row) {
+      const inputName = `${el.id}_row_clicked`;
+      console.log(inputName, row.getData());
+      Shiny.onInputChange(inputName, row.getData());
+    });
+    table.on("rowClick", (e, row) => {
+      const inputName = `${el.id}_rows_selected`;
+      const data = table.getSelectedRows().map((row2) => row2.getData());
+      console.log(inputName, data);
+      Shiny.onInputChange(inputName, data);
+    });
+    table.on("cellEdited", function(cell) {
+      const inputName = `${el.id}_row_edited`;
+      console.log(inputName, cell.getData());
+      Shiny.onInputChange(inputName, cell.getData());
+    });
+    table.on("dataFiltered", function(filters, rows) {
+      const inputName = `${el.id}_data_filtered`;
+      const data = rows.map((row) => row.getData());
+      console.log(inputName, data);
+      Shiny.onInputChange(inputName, data);
+    });
+  }
+
+  // srcjs/widget.js
+  function run_calls(el, table, calls) {
+    calls.forEach(([method_name, options]) => {
+      if (method_name === "getData") {
+        console.log("custom call");
+        Shiny.onInputChange(`${el.id}_data`, table.getData());
+        return;
+      }
+      if (method_name === "deleteSelectedRows") {
+        console.log("custom call");
+        const rows = table.getSelectedRows();
+        rows.forEach((row) => {
+          console.log(row.getIndex());
+          table.deleteRow(row.getIndex());
+        });
+        return;
+      }
+      console.log(method_name, options);
+      table[method_name](...options);
+    });
+  }
+  var TabulatorWidget = class {
+    constructor(container, data, options) {
+      options.data = data;
+      this._container = container;
+      console.log("columns", options.columns);
+      if (options.columns == null)
+        options.autoColumns = true;
+      this._table = new Tabulator(this._container, options);
+      if (typeof Shiny === "object") {
+        addEventListeners(this._table, this._container);
+        this._addShinyMessageHandler();
+      }
+    }
+    _addShinyMessageHandler() {
+      const messageHandlerName = `tabulator-${this._container.id}`;
+      Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+        console.log(payload);
+        run_calls(this._container, this._table, payload.calls);
+      });
+    }
+    getTable() {
+      return this._table;
+    }
+  };
+
+  // srcjs/index.js
+  var TabulatorOutputBinding = class extends Shiny.OutputBinding {
+    find(scope) {
+      return scope.find(".shiny-tabulator-output");
+    }
+    renderValue(el, payload) {
+      console.log("payload", payload);
+      const widget = new TabulatorWidget(el, payload.data, payload.options);
+      const table = widget.getTable();
+      table.on("tableBuilt", function() {
+        if (payload.options.columnUpdates != null) {
+          console.log("column updates", payload.options.columnUpdates);
+        }
+      });
+    }
+  };
+  Shiny.outputBindings.register(
+    new TabulatorOutputBinding(),
+    "shiny-tabulator-output"
+  );
+})();

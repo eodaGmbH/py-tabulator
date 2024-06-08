@@ -1,3 +1,5 @@
+import addEventListeners from "./events";
+
 function run_calls(el, table, calls) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
@@ -21,4 +23,31 @@ function run_calls(el, table, calls) {
   });
 }
 
-export { run_calls };
+class TabulatorWidget {
+  constructor(container, data, options) {
+    options.data = data;
+    this._container = container;
+    console.log("columns", options.columns);
+    if (options.columns == null) options.autoColumns = true;
+    this._table = new Tabulator(this._container, options);
+    if (typeof Shiny === "object") {
+      addEventListeners(this._table, this._container);
+      this._addShinyMessageHandler();
+    }
+  }
+
+  _addShinyMessageHandler() {
+    // This must be inside table.on("tableBuilt")
+    const messageHandlerName = `tabulator-${this._container.id}`;
+    Shiny.addCustomMessageHandler(messageHandlerName, (payload) => {
+      console.log(payload);
+      run_calls(this._container, this._table, payload.calls);
+    });
+  }
+
+  getTable() {
+    return this._table;
+  }
+}
+
+export { run_calls, TabulatorWidget };
