@@ -35,7 +35,7 @@ class TabulatorContext(object):
         self._message_queue.append(call)
 
     def trigger_download(
-        self, type: Literal["csv", "json"] = "csv", file_name: str = None
+        self, type: Literal["csv", "json"] = "csv", file_name: str = None, *args
     ) -> None:
         """Trigger download
 
@@ -46,7 +46,7 @@ class TabulatorContext(object):
         if not file_name:
             file_name = f"tabulator-data.{type}"
 
-        self.add_call("download", type, file_name)
+        self.add_call("download", type, file_name, *args)
 
     def add_row(self, row: dict = {}) -> None:
         """Add a row to the table
