@@ -35,13 +35,14 @@ class TabulatorContext(object):
         self._message_queue.append(call)
 
     def trigger_download(
-        self, type: Literal["csv", "json"] = "csv", file_name: str = None, *args
+        self, type: Literal["csv", "json", "xlsx"] = "csv", file_name: str = None, *args
     ) -> None:
         """Trigger download
 
         Args:
-            type (str): The data type of file to be downloaded.
+            type (str): The data type of the file to be downloaded.
             file_name (str): The file name.
+            *args (any): The arguments to be passed to the `table.download` method.
         """
         if not file_name:
             file_name = f"tabulator-data.{type}"
