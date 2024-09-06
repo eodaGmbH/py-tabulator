@@ -23,7 +23,7 @@ from .tabulator import Tabulator, jsonifiable_table_options
 def tabulator_dep() -> HTMLDependency:
     return HTMLDependency(
         "tabulator",
-        "5.5.4",
+        "6.2.1",
         source={"package": "pytabulator", "subdir": "srcjs"},
         script={"src": "tabulator.min.js", "type": "module"},
         stylesheet={"href": os.getenv("PY_TABULATOR_STYLESHEET", "tabulator.min.css")},
@@ -32,7 +32,7 @@ def tabulator_dep() -> HTMLDependency:
 
 
 tabulator_bindings_dep = HTMLDependency(
-    "tabulatorbindings",
+    "tabulator-bindings",
     "0.1.0",
     source={"package": "pytabulator", "subdir": "srcjs"},
     script={"src": "tabulator-bindings.js", "type": "module"},
