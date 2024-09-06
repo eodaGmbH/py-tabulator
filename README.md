@@ -4,6 +4,8 @@
 [![pypi](https://img.shields.io/pypi/v/pytabulator.svg)](https://pypi.python.org/pypi/pytabulator)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-tabulator/pytest.yml?branch=main)](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-tabulator/pytest.yml?branch=main)
 [![License](https://img.shields.io/github/license/eodaGmbH/py-tabulator)](https://img.shields.io/github/license/eodaGmbH/py-tabulator)
+[![License](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)
+[![Tabulator](https://img.shields.io/badge/Tabulator-v6.2.1-blue.svg)](https://github.com/olifolkerd/tabulator/releases/tag/6.2.1)
 
 [Shiny for Python](https://shiny.posit.co/py/) bindings for [Tabulator JS](https://tabulator.info/)
 
