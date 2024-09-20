@@ -75,6 +75,7 @@
   function tabulatorFactory(widgetElement, width, height) {
     let table = null;
     function renderValue(payload) {
+      payload.data = HTMLWidgets.dataframeToD3(payload.data);
       console.log(payload);
       if (payload.options === null) {
         payload.options = {};
