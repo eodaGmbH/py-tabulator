@@ -11,30 +11,38 @@
 
 ## Features
 
-- Support for [Shiny core](https://shiny.posit.co/py/) and [Shiny Express](https://shiny.posit.co/blog/posts/shiny-express/)
-- Pagination
-- Filters
-- Editor with undo and redo (History interaction)
-- Grouping
-- Sorting
-- Column calculations
-- Downloads
-- Themes
-- Reactivity
+* Filtering
+* Grouping
+* Editing
+* Input validation
+* History with undo and redo actions
+* Pagination
+* Layout
+* Column formatters
+* Column calculations
+* Multi column headers
+* Packaged themes
+* Spreadsheets supporting multiple sheets
+* Download data
+* Freeze data
+
+To learn more about pytabulator, see the documentation at https://eodagmbh.github.io/py-tabulator/.
+
+Bindings for R are available at https://github.com/eodaGmbH/rtabulator.
 
 ## Installation
 
-```bash
-# Stable
-pip install pytabulator
+You can install the released version of pytabulator from [PyPI](https://pypi.org/) with:
 
-# Dev
-pip install git+https://github.com/eodaGmbH/py-tabulator
+```bash
+pip install pytabulator
 ```
 
-## Docs
+You can install the development version of pytabulator like so:
 
-- https://eodagmbh.github.io/py-tabulator/
+```bash
+pip install git+https://github.com/eodaGmbH/py-tabulator
+```
 
 ## Basic usage
 
