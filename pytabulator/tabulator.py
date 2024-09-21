@@ -4,7 +4,7 @@ from pandas import DataFrame
 
 from ._types import TableOptions
 from ._utils import df_to_dict
-
+from typing import Self
 
 # TODO: Move somewhere else!?
 def jsonifiable_table_options(
@@ -33,7 +33,12 @@ class Tabulator(object):
         # self.table_options = table_options
         self._table_options = jsonifiable_table_options(table_options)
 
-    def options(self, **kwargs) -> Tabulator:
+    @property
+    def columns(self) -> list[dict]:
+        return self._table_options["columns"]
+
+    # TODO: Rename to set_options
+    def options(self, **kwargs) -> Self:
         self._table_options.update(kwargs)
         return self
 
