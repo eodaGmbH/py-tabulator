@@ -10,7 +10,8 @@ from shiny.render.renderer import Jsonifiable, Renderer, ValueFn
 
 from ._types import TableOptions
 from ._utils import df_to_dict
-from .tabulator import Tabulator, jsonifiable_table_options
+# from .tabulator import Tabulator, jsonifiable_table_options
+from .tabulator import Tabulator
 
 # from . import TableOptions
 
@@ -95,5 +96,7 @@ class render_data_frame(Renderer[DataFrame]):
         # return {"values": value.values.tolist(), "columns": value.columns.tolist()}
         # TODO: convert with js
         data = df_to_dict(df)
-        data["options"] = jsonifiable_table_options(self.table_options)
+
+        # TODO: Fix this, func was removed
+        # data["options"] = jsonifiable_table_options(self.table_options)
         return data

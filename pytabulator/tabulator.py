@@ -2,18 +2,11 @@ from __future__ import annotations
 
 from pandas import DataFrame
 
-from ._types import TableOptions
 from ._utils import df_to_dict
-from typing import Self
+from typing import Self, Any
 
-# TODO: Move somewhere else!?
-def jsonifiable_table_options(
-    table_options: TableOptions | dict,
-) -> dict:
-    if isinstance(table_options, TableOptions):
-        return table_options.to_dict()
-
-    return table_options
+from .tabulator_options import TabulatorOptions
+from .utils import create_columns
 
 
 class Tabulator(object):
@@ -21,29 +14,47 @@ class Tabulator(object):
 
     Args:
         df (DataFrame): A data frame.
-        table_options (TableOptions): Table options.
+        options (TabulatorOptions): Setup options.
     """
 
     def __init__(
         self,
         df: DataFrame,
-        table_options: TableOptions | dict = {},
+        options: TabulatorOptions | dict = TabulatorOptions(),
     ) -> None:
         self.df = df
-        # self.table_options = table_options
-        self._table_options = jsonifiable_table_options(table_options)
+        self._options = (
+            options
+            if isinstance(options, TabulatorOptions)
+            else TabulatorOptions(**options)
+        )
+        if not self._options.columns:
+            self._options.columns = create_columns(self.df)
 
     @property
     def columns(self) -> list[dict]:
-        return self._table_options["columns"]
+        return self._options.columns
 
-    # TODO: Rename to set_options
-    def options(self, **kwargs) -> Self:
-        self._table_options.update(kwargs)
+    def _find_column(self, col_name: str) -> tuple:
+        for i, col in enumerate(self.columns):
+            if col["field"] == col_name:
+                return i, col
+
+        return None, None
+
+    def update_column(self, col_name: str, **kwargs: Any) -> Self:
+        i, col = self._find_column(col_name)
+        if col is not None:
+            self._options.columns[i] = col | kwargs
+
+        return self
+
+    def set_options(self, **kwargs) -> Self:
+        pass
         return self
 
     def to_dict(self) -> dict:
+        # TODO: Rename 'data' to ???
         data = df_to_dict(self.df)
-        # data["options"] = jsonifiable_table_options(self.table_options)
-        data["options"] = self._table_options
+        data["options"] = self._options.to_dict()
         return data
