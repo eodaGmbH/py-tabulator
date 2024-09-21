@@ -12,3 +12,6 @@ def test_tabulator_columns(persons):
 
     table = table.update_column("Name", editor = True)
     print(table.columns)
+
+    table = table.set_formatter("Age", "html", hozAlign="center")
+    print(table.columns)

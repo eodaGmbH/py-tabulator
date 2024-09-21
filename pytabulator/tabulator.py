@@ -49,6 +49,22 @@ class Tabulator(object):
 
         return self
 
+    def set_formatter(
+        self,
+        col_name: str,
+        formatter: str,
+        formatter_params: dict = None,
+        **kwargs: Any,
+    ) -> Self:
+        return self.update_column(
+            col_name,
+            **dict(
+                formatter=formatter,
+                formatterParams=formatter_params or dict(),
+                **kwargs,
+            ),
+        )
+
     def set_options(self, **kwargs) -> Self:
         pass
         return self
