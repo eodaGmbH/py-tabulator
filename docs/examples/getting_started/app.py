@@ -15,7 +15,7 @@ def server(input, output, session):
         df = pd.read_csv(
             "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
         )
-        return Tabulator(df, table_options={"height": 311})
+        return Tabulator(df, options={"height": 311})
 
     @render.code
     async def txt():

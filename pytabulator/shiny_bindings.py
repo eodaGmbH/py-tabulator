@@ -33,10 +33,10 @@ def tabulator_dep() -> HTMLDependency:
 
 
 tabulator_bindings_dep = HTMLDependency(
-    "tabulator-bindings",
+    "pytabulator",
     "0.1.0",
     source={"package": "pytabulator", "subdir": "srcjs"},
-    script={"src": "tabulator-bindings.js", "type": "module"},
+    script={"src": "pytabulator.js", "type": "module"},
     all_files=False,
 )
 

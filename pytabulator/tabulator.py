@@ -70,7 +70,11 @@ class Tabulator(object):
         return self
 
     def to_dict(self) -> dict:
-        # TODO: Rename 'data' to ???
+        # TODO: Rename 'data' to ??? model!?
         data = df_to_dict(self.df)
         data["options"] = self._options.to_dict()
+        data["bindingOptions"] = dict(lang = "python")
         return data
+
+    def to_html(self):
+        pass
