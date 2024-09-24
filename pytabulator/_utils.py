@@ -24,9 +24,11 @@ def as_camel_dict_recursive(snake_dict: dict) -> dict:
     camel_case_dict = {}
     for k, v in snake_dict.items():
         if v is not None:
+            camel_key = snake_to_camel_case(k) if "_" in k else k
+
             if isinstance(v, dict):
-                camel_case_dict[snake_to_camel_case(k)] = as_camel_dict_recursive(v)
+                camel_case_dict[camel_key] = as_camel_dict_recursive(v)
             else:
-                camel_case_dict[snake_to_camel_case(k)] = v
+                camel_case_dict[camel_key] = v
 
     return camel_case_dict
