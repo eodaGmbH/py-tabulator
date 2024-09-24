@@ -1,14 +1,20 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pandas import DataFrame
 
-from ._utils import df_to_dict, as_camel_dict_recursive
-from typing import Self, Any
+try:
+    from typing_extensions import Self
+except ImportError:
+    from typing import Self
 
-from .tabulator_options import TabulatorOptions
-from .utils import create_columns
+from ._utils import as_camel_dict_recursive, df_to_dict
 from .editors import Editor
 from .formatters import Formatter
+from .tabulator_options import TabulatorOptions
+from .utils import create_columns
+
 
 class Tabulator(object):
     """Tabulator
