@@ -65,19 +65,26 @@ class Tabulator(object):
             ),
         )
 
-    def set_column_formatter_star(self, column: str, stars: int, **kwargs) -> Self:
+    def set_column_formatter_star(self, col_name: str, stars: int, **kwargs) -> Self:
         formatter_params = dict(stars=stars)
         self.set_column_formatter(
-            column, "star", formatter_params, hozAlign="center", **kwargs
+            col_name, "star", formatter_params, hozAlign="center", **kwargs
         )
         return self
 
-    def set_column_formatter_tick_cross(self, column, **kwargs) -> Self:
-        self.set_column_formatter(column, "tickCross", **kwargs)
+    def set_column_formatter_tick_cross(self, col_name, **kwargs) -> Self:
+        self.set_column_formatter(col_name, "tickCross", **kwargs)
         return self
 
-    def set_column_editor(self) -> Self:
-        return self
+    def set_column_editor(self, col_name: str, editor: str, editor_params: dict = None, **kwargs: Any) -> Self:
+        return self.update_column(
+            col_name,
+            **dict(
+                editor=editor,
+                editorParams=editor_params or dict(),
+                **kwargs,
+            ),
+        )
 
     def set_options(self, **kwargs) -> Self:
         self._options = self._options.model_copy(update = kwargs)
