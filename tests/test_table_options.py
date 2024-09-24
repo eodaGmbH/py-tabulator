@@ -1,9 +1,6 @@
 import pytest
 
-# from pytabulator import TableOptions
-from pytabulator._table_options_dc import TableOptionsDC
-from pytabulator._table_options_dc import TableOptionsDC as TableOptionsDC
-from pytabulator._table_options_pydantic import TableOptionsPydantic as TableOptions
+from pytabulator.tabulator_options import TabulatorOptions
 
 
 @pytest.fixture
@@ -18,17 +15,11 @@ def some_table_options():
 
 def test_table_options(some_table_options):
     # Prepare
-    table_options_pydantic = TableOptions(**some_table_options)
-    print("pydantic", table_options_pydantic)
-
-    table_options_dc = TableOptionsDC(**some_table_options)
-    print("dc", table_options_dc)
+    table_options = TabulatorOptions(**some_table_options)
 
     # Act
-    table_options_pydantic_dict = table_options_pydantic.to_dict()
-    table_options_dc_dict = table_options_dc.to_dict()
+    table_options_dict = table_options.to_dict()
 
     # Assert
-    assert list(table_options_pydantic_dict.items()).sort(
-        key=lambda item: item[0]
-    ) == list(table_options_dc_dict.items()).sort(key=lambda item: item[0])
+    print(table_options_dict)
+    assert table_options_dict["movableRows"] == False
