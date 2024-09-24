@@ -1,3 +1,4 @@
+"""
 from importlib.metadata import PackageNotFoundError, version
 
 try:
@@ -12,7 +13,8 @@ except PackageNotFoundError:
     from ._table_options_dc import TableOptionsDC as TableOptions
 
     # print("dataclass")
-
+"""
+from .tabulator_options import TabulatorOptions as TableOptions
 # from ._table_options_pydantic import TableOptionsPydantic as TableOptions
 from .shiny_bindings import output_tabulator, render_data_frame, render_tabulator
 from .tabulator import Tabulator
