@@ -25,7 +25,9 @@ def server(input, output, session):
             .set_options(height=311)
             .set_column_formatter_star("Pclass", 3)
             .set_column_formatter_tick_cross("Survived", hozAlign="center")
-            .set_column_editor("Fare", "number", dict(min=0, max=10))
+            # .set_column_editor("Fare", "number", dict(min=0, max=10))
+            .set_column_editor_number("Fare", min_=0, max_=5)
+            .set_column_title("Pclass", "PassengerClass")
         )
 
     @render.code

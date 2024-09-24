@@ -42,6 +42,7 @@ class Tabulator(object):
 
         return None, None
 
+    # ----- Column generics -----
     def update_column(self, col_name: str, **kwargs: Any) -> Self:
         i, col = self._find_column(col_name)
         if col is not None:
@@ -65,6 +66,18 @@ class Tabulator(object):
             ),
         )
 
+    # ----- Column formatters -----
+    def set_column_editor(self, col_name: str, editor: str, editor_params: dict = None, validator: Any = None, **kwargs: Any) -> Self:
+        return self.update_column(
+            col_name,
+            **dict(
+                editor=editor,
+                editorParams=editor_params or dict(),
+                validator = validator,
+                **kwargs,
+            ),
+        )
+
     def set_column_formatter_star(self, col_name: str, stars: int, **kwargs) -> Self:
         formatter_params = dict(stars=stars)
         self.set_column_formatter(
@@ -76,16 +89,16 @@ class Tabulator(object):
         self.set_column_formatter(col_name, "tickCross", **kwargs)
         return self
 
-    def set_column_editor(self, col_name: str, editor: str, editor_params: dict = None, **kwargs: Any) -> Self:
-        return self.update_column(
-            col_name,
-            **dict(
-                editor=editor,
-                editorParams=editor_params or dict(),
-                **kwargs,
-            ),
-        )
+    # ----- Column editor -----
+    def set_column_editor_number(self, col_name: str, min_: float = None, max_: float = None, **kwargs) -> Self:
+        editor_params = dict(min=min_, max=max_)
+        return self.set_column_editor(col_name, "number", editor_params, **kwargs)
 
+    # ----- Column headers -----
+    def set_column_title(self, col_name: str, title: str, **kwargs) -> Self:
+        return self.update_column(col_name, title=title, **kwargs)
+
+    # ----- Misc -----
     def set_options(self, **kwargs) -> Self:
         self._options = self._options.model_copy(update = kwargs)
         return self
