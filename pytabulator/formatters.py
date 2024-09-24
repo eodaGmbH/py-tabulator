@@ -22,3 +22,13 @@ class StarFormatter(Formatter):
     @property
     def name(self) -> str:
         return Formatters.STAR.value
+
+class ProgressFormatter(Formatter):
+    @property
+    def name(self) -> str:
+        return Formatters.PROGRESS.value
+
+class TickCrossFormatter(Formatter):
+    @property
+    def name(self) -> str:
+        return Formatters.TICK_CROSS.value
