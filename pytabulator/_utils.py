@@ -15,6 +15,18 @@ def set_theme(stylesheet):
 def snake_to_camel_case(snake_str: str) -> str:
     return snake_str[0].lower() + snake_str.title()[1:].replace("_", "")
 
-    # return "".join(
-    #    [item if not i else item.title() for i, item in enumerate(snake_str.split("_"))]
-    # )
+
+def as_camel_dict(snake_dict: dict) -> dict:
+    return {snake_to_camel_case(k): v for (k, v) in snake_dict.items() if v is not None}
+
+
+def as_camel_dict_recursive(snake_dict: dict) -> dict:
+    camel_case_dict = {}
+    for k, v in snake_dict.items():
+        if v is not None:
+            if isinstance(v, dict):
+                camel_case_dict[snake_to_camel_case(k)] = as_camel_dict_recursive(v)
+            else:
+                camel_case_dict[snake_to_camel_case(k)] = v
+
+    return camel_case_dict

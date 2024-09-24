@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pandas import DataFrame
 
-from ._utils import df_to_dict
+from ._utils import df_to_dict, as_camel_dict_recursive
 from typing import Self, Any
 
 from .tabulator_options import TabulatorOptions
@@ -46,7 +46,7 @@ class Tabulator(object):
     def update_column(self, col_name: str, **kwargs: Any) -> Self:
         i, col = self._find_column(col_name)
         if col is not None:
-            self._options.columns[i] = col | kwargs
+            self._options.columns[i] = col | as_camel_dict_recursive(kwargs)
 
         return self
 

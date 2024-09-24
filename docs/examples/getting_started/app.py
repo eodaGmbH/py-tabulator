@@ -28,6 +28,7 @@ def server(input, output, session):
             # .set_column_editor("Fare", "number", dict(min=0, max=10))
             .set_column_editor_number("Fare", min_=0, max_=5)
             .set_column_title("Pclass", "PassengerClass")
+            .set_column_editor("Name", "input", hoz_align="center")
         )
 
     @render.code
