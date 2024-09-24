@@ -49,7 +49,7 @@ class Tabulator(object):
 
         return self
 
-    def set_formatter(
+    def set_column_formatter(
         self,
         col_name: str,
         formatter: str,
@@ -65,16 +65,29 @@ class Tabulator(object):
             ),
         )
 
+    def set_column_formatter_star(self, column: str, stars: int, **kwargs) -> Self:
+        formatter_params = dict(stars=stars)
+        self.set_column_formatter(
+            column, "star", formatter_params, hozAlign="center", **kwargs
+        )
+        return self
+
+    def set_column_formatter_tick_cross(self, column, **kwargs) -> Self:
+        self.set_column_formatter(column, "tickCross", **kwargs)
+        return self
+
+    def set_column_editor(self) -> Self:
+        return self
+
     def set_options(self, **kwargs) -> Self:
-        pass
+        self._options = self._options.model_copy(update = kwargs)
         return self
 
     def to_dict(self) -> dict:
-        # TODO: Rename 'data' to ??? model!?
-        data = df_to_dict(self.df)
-        data["options"] = self._options.to_dict()
-        data["bindingOptions"] = dict(lang = "python")
-        return data
+        payload = df_to_dict(self.df)
+        payload["options"] = self._options.to_dict()
+        payload["bindingOptions"] = dict(lang="python")
+        return payload
 
     def to_html(self):
         pass

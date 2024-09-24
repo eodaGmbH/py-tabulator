@@ -15,7 +15,17 @@ def server(input, output, session):
         df = pd.read_csv(
             "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
         )
-        return Tabulator(df, options={"height": 311})
+        """
+        return Tabulator(df, options={"height": 311}).set_column_formatter(
+            "Pclass", "star", {"stars": 3}, hozAlign="center"
+        )
+        """
+        return (
+            Tabulator(df)
+            .set_options(height=311)
+            .set_column_formatter_star("Pclass", 3)
+            .set_column_formatter_tick_cross("Survived", hozAlign="center")
+        )
 
     @render.code
     async def txt():
