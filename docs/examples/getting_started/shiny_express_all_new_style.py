@@ -4,7 +4,7 @@ import pandas as pd
 from pytabulator import TableOptions, Tabulator, TabulatorContext, render_tabulator
 from pytabulator.utils import create_columns
 from pytabulator.formatters import ProgressFormatter, TickCrossFormatter
-from pytabulator.editors import ListEditor
+from pytabulator.editors import ListEditor, InputEditor, ProgressEditor
 from shiny import reactive, render
 from shiny.express import input, ui
 
@@ -85,6 +85,8 @@ def tabulator():
         .set_column_formatter("Fare", ProgressFormatter(), hoz_align="left")
         .set_column_formatter("Survived", TickCrossFormatter(), hoz_align="center")
         .set_column_editor("Sex", ListEditor())
+        .set_column_editor("Name", InputEditor())
+        .set_column_editor("Fare", ProgressEditor(), hoz_align="left")
     )
 
 

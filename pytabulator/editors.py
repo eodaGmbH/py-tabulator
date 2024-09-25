@@ -1,9 +1,7 @@
-from pydantic import BaseModel
-
-from typing import Optional, Literal
-
-from ._utils import as_camel_dict_recursive
 from enum import Enum
+from typing import Literal, Optional
+
+from ._abstracts import MyBaseModel
 
 
 class Editors(Enum):
@@ -17,38 +15,35 @@ class Editors(Enum):
     LIST = "list"
 
 
-class Editor(BaseModel):
+class Editor(MyBaseModel):
+    _name: str = ""
+
     @property
     def name(self) -> str:
-        return ""
-
-    def to_dict(self) -> dict:
-        return as_camel_dict_recursive(self.model_dump(exclude_none=True))
+        return self._name
 
 
 class InputEditor(Editor):
+    _name: str = Editors.INPUT.value
+
     search: Optional[bool] = None
     mask: Optional[str] = None
     select_contents: Optional[bool] = None
     element_attributes: Optional[dict] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.INPUT.value
-
 
 class TextareaEditor(Editor):
+    _name: str = Editors.TEXTAREA.value
+
     mask: Optional[str] = None
     select_contents: Optional[bool] = None
     vertical_navigation: Literal["hybrid", "editor", "table"] = None
     shift_enter_submit: Optional[bool] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.TEXTAREA.value
-
 
 class NumberEditor(Editor):
+    _name: str = Editors.NUMBER.value
+
     min: Optional[float] = None
     max: Optional[float] = None
     step: Optional[float] = None
@@ -57,52 +52,38 @@ class NumberEditor(Editor):
     select_contents: Optional[bool] = None
     vertical_navigation: Literal["editor", "table"] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.NUMBER.value
-
 
 class RangeEditor(Editor):
+    _name: str = Editors.RANGE.value
+
     min: Optional[float] = None
     max: Optional[float] = None
     step: Optional[float] = None
     element_attributes: Optional[dict] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.RANGE.value
-
 
 class TickCrossEditor(Editor):
+    _name: str = Editors.TICK_CROSS.value
+
     true_value: Optional[str] = None
     false_value: Optional[str] = None
     element_attributes: Optional[dict] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.TICK_CROSS.value
-
 
 class StarEditor(Editor):
-    @property
-    def name(self) -> str:
-        return Editors.STAR.value
+    _name: str = Editors.STAR.value
 
 
 class ProgressEditor(Editor):
+    _name: str = Editors.PROGRESS.value
+
     min: Optional[float] = None
     max: Optional[float] = None
     element_attributes: Optional[dict] = None
 
-    @property
-    def name(self) -> str:
-        return Editors.PROGRESS.value
-
 
 class ListEditor(Editor):
+    _name: str = Editors.LIST.value
+
     values: Optional[list] = None
     values_lookup: Optional[bool] = True
-
-    @property
-    def name(self) -> str:
-        return Editors.LIST.value
